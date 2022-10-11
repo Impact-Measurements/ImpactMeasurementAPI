@@ -12,11 +12,11 @@ namespace ImpactMeasurementAPI.Logic
         private readonly double _mass;
 
 
-        public CalculateImpact(FreeAcceleration x, FreeAcceleration y, FreeAcceleration z, double mass)
+        public CalculateImpact(TrainingSession trainingSession, double mass)
         {
-            _x = x;
-            _y = y;
-            _z = z;
+            _x = trainingSession.FreeAccelerationX;
+            _y = trainingSession.FreeAccelerationY;
+            _z = trainingSession.FreeAccelerationZ;
             _mass = mass;
         }
 

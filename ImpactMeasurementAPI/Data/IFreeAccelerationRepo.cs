@@ -7,12 +7,12 @@ namespace ImpactMeasurementAPI.Data
     {
         bool SaveChanges();
 
-        IEnumerable<double> GetAllFreeAccelerationValues();
+        IEnumerable<double> GetAllFreeAccelerationValuesFromSession(int id);
 
-        double GetHighestForceOfImpact();
+        double GetHighestForceOfImpactFromSession(int id);
 
-        IEnumerable<double> GetAllImpactData();
+        IEnumerable<double> GetAllImpactDataFromSession(int id);
 
-        double GetAverageForceOfImpact();
+        double GetAverageForceOfImpactFromSession(int id);
     }
 }

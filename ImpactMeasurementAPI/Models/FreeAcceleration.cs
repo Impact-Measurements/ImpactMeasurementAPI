@@ -11,9 +11,7 @@ namespace ImpactMeasurementAPI.Models
         public int Id { get; set; }
         
         public Axis Axis { get; set; }
-        
-        public DateTime StartSessionTime { get; set; }
-        
+
         public ICollection<double> Values { get; set; }
     }
 }
