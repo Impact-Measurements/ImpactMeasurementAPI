@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace ImpactMeasurementAPI.Models
 {
     
@@ -5,5 +7,8 @@ namespace ImpactMeasurementAPI.Models
     public class Athlete
     {
         
+        [Key]
+        [Required]
+        public int Id;
     }
 }

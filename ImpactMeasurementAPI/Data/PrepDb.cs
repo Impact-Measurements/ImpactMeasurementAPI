@@ -38,6 +38,15 @@ namespace ImpactMeasurementAPI.Data
             if (!context.TrainingSessions.Any())
             {
                 Console.WriteLine("--> seeding data");
+                
+                context.TrainingSessions.AddRange(
+                    new TrainingSession() {FreeAcceleration = new List<MomentarilyAcceleration>(),Id = 0,
+                        StartingTime = new DateTime(2022,10,15)}
+                );
+                
+                context.MomentarilyAccelerations.AddRange(
+                    new MomentarilyAcceleration() {}
+                    );
 
                 context.SaveChanges();
             }

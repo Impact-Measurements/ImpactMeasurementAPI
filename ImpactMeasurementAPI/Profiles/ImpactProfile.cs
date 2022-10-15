@@ -8,16 +8,6 @@ namespace ImpactMeasurementAPI.Profiles
     {
         public ImpactProfile()
         {
-            
-            //source->target
-            //
-            // CreateMap<TrainingSession, ReadAccelerationOnAxes>()
-            //     .ForMember(dest => dest.FreeAccelerationX,
-            //         opt => opt.MapFrom(src => src.FreeAccelerationX.Values))
-            //     .ForMember(dest => dest.FreeAccelerationY,
-            //     opt => opt.MapFrom(src => src.FreeAccelerationY.Values))
-            //     .ForMember(dest => dest.FreeAccelerationZ,
-            //     opt => opt.MapFrom(src => src.FreeAccelerationZ.Values));
         }
     }
 }
