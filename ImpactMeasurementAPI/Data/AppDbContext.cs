@@ -9,7 +9,14 @@ namespace ImpactMeasurementAPI.Data
         {
             
         }
-        public DbSet<FreeAcceleration> FreeAccelerations { get; set; }
+
+        public DbSet<TrainingSession> TrainingSessions { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+        
+        }
+
 
     }
 }

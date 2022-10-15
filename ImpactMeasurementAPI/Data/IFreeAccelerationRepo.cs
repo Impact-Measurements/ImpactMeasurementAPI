@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ImpactMeasurementAPI.Models;
 
 namespace ImpactMeasurementAPI.Data
 {
@@ -14,5 +15,7 @@ namespace ImpactMeasurementAPI.Data
         IEnumerable<double> GetAllImpactDataFromSession(int id);
 
         double GetAverageForceOfImpactFromSession(int id);
+
+        TrainingSession GetTrainingSession(int id);
     }
 }

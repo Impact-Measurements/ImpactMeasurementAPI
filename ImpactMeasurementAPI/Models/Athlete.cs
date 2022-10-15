@@ -1,7 +1,9 @@
 namespace ImpactMeasurementAPI.Models
 {
-    public enum Axis
+    
+    //TODO
+    public class Athlete
     {
-        X, Y, Z
+        
     }
 }

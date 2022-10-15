@@ -5,12 +5,14 @@ namespace ImpactMeasurementAPI.Models
 {
     public class TrainingSession
     {
-        public int Id { get; set; }
-        
-        public DateTime StartSessionTime { get; set; }
-        
-        public FreeAcceleration FreeAccelerationX { get; set; }
-        public FreeAcceleration FreeAccelerationY { get; set; }
-        public FreeAcceleration FreeAccelerationZ { get; set; }
+        public int Id;
+
+        public List<MomentarilyAcceleration> FreeAcceleration;
+
+        public DateTime StartingTime;
+
+        public Sport Sport;
+
+        public Coach Coach;
     }
 }

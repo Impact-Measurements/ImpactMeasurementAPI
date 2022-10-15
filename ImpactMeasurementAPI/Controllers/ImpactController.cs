@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using ImpactMeasurementAPI.Data;
 using ImpactMeasurementAPI.DTOs;
+using ImpactMeasurementAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ImpactMeasurementAPI.Controllers
@@ -20,11 +21,12 @@ namespace ImpactMeasurementAPI.Controllers
             _mapper = mapper;
         }
 
-        public ActionResult<IEnumerable<ReadAccelerationOnAxes>> GetAllFreeAccelerationValuesFromSession(int trainingSessionId)
+        [HttpGet("trainingSessionId", Name = "GetAllFreeAccelerations")]
+        public ActionResult<TrainingSession> GetAllFreeAccelerationValuesFromSession(int trainingSessionId)
         {
-            var trainingSession = _repository.GetAllFreeAccelerationValuesFromSession(trainingSessionId);
+            var trainingSession = _repository.GetTrainingSession(trainingSessionId);
             
-            return Ok(_mapper.Map<IEnumerable<ReadAccelerationOnAxes>>(trainingSession));
+            return Ok(trainingSession);
         }
     }
 }

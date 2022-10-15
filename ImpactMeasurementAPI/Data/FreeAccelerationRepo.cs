@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using ImpactMeasurementAPI.DTOs;
 using ImpactMeasurementAPI.Logic;
+using ImpactMeasurementAPI.Models;
 
 namespace ImpactMeasurementAPI.Data
 {
@@ -21,7 +23,14 @@ namespace ImpactMeasurementAPI.Data
 
         public IEnumerable<double> GetAllFreeAccelerationValuesFromSession(int id)
         {
+            var readAccelerationOnAxes = new ReadAccelerationOnAxes();
+            var trainingSession = new TrainingSession();
+
+            trainingSession = _context.TrainingSessions
+                .FirstOrDefault(p => p.Id == id);
+            
             throw new System.NotImplementedException();
+            
         }
 
         public double GetHighestForceOfImpactFromSession(int id)
@@ -37,6 +46,16 @@ namespace ImpactMeasurementAPI.Data
         public double GetAverageForceOfImpactFromSession(int id)
         {
             throw new System.NotImplementedException();
+        }
+
+        public TrainingSession GetTrainingSession(int id)
+        {
+            var trainingSession = new TrainingSession();
+
+            trainingSession = _context.TrainingSessions
+                .FirstOrDefault(p => p.Id == id);
+
+            return trainingSession;
         }
     }
 }
