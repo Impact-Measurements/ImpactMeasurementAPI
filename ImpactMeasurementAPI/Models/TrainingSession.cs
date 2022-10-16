@@ -9,11 +9,11 @@ namespace ImpactMeasurementAPI.Models
         
         [Key]
         [Required]
-        public int Id;
+        public int Id { get; set; }
 
-        public List<MomentarilyAcceleration> FreeAcceleration;
+        public List<MomentarilyAcceleration> FreeAcceleration { get; set; }
 
-        public DateTime StartingTime;
+        public DateTime StartingTime { get; set; }
 
         // public Sport Sport;
         //

@@ -8,7 +8,7 @@ namespace ImpactMeasurementAPI.Models
     {
         [Key]
         [Required]
-        public int Id;
+        public int Id { get; set; }
         
         
     }

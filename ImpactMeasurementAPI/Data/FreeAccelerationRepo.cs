@@ -43,7 +43,7 @@ namespace ImpactMeasurementAPI.Data
 
         public TrainingSession GetTrainingSession(int id)
         {
-            throw new System.NotImplementedException();
+            return _context.TrainingSessions.FirstOrDefault(t => t.Id == id);
         }
     }
 }

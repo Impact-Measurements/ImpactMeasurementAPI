@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 namespace ImpactMeasurementAPI.DTOs
 {
+    
+    //TODO
     public class ReadSessionImpact
     {
-        public IEnumerable<double> Impact { get; set; }
+
     }
 }

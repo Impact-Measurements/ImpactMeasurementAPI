@@ -8,24 +8,24 @@ namespace ImpactMeasurementAPI.Models
         
         [Key]
         [Required]
-        public int Id;
+        public int Id { get; set; }
         
-        public TrainingSession TrainingSession;
+        public TrainingSession TrainingSession { get; set; }
 
         [Required]
-        public int TrainingSessionId;
+        public int TrainingSessionId { get; set; }
         
         [Required]
-        public int Frame;
+        public int Frame { get; set; }
 
         [Required]
-        public double AccelerationX;
+        public double AccelerationX { get; set; }
         
         [Required]
-        public double AccelerationY;
+        public double AccelerationY { get; set; }
         
         [Required]
-        public double AccelerationZ;
+        public double AccelerationZ { get; set; }
         
     }
 }
