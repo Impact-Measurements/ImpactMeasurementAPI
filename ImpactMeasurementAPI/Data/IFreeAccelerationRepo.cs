@@ -17,5 +17,7 @@ namespace ImpactMeasurementAPI.Data
         double GetAverageForceOfImpactFromSession(int id);
 
         TrainingSession GetTrainingSession(int id);
+
+        IEnumerable<MomentarilyAcceleration> MomentarilyAccelerations();
     }
 }

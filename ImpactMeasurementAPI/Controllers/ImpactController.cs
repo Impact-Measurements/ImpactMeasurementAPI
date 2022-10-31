@@ -26,7 +26,14 @@ namespace ImpactMeasurementAPI.Controllers
         {
             var trainingSession = _repository.GetTrainingSession(trainingSessionId);
             
+            
             return Ok(trainingSession);
+        }
+
+        [HttpGet(Name = "GetAllFreeAccelerationValues")]
+        public ActionResult<IEnumerable<MomentarilyAcceleration>> GetAllFreeAccelerationValues()
+        {
+            return Ok(_repository.MomentarilyAccelerations());
         }
     }
 }
