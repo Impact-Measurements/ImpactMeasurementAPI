@@ -18,6 +18,5 @@ namespace ImpactMeasurementAPI.Data
 
         TrainingSession GetTrainingSession(int id);
 
-        IEnumerable<MomentarilyAcceleration> MomentarilyAccelerations();
     }
 }

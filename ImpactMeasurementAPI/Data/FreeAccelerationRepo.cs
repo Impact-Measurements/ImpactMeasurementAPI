@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using ImpactMeasurementAPI.DTOs;
 using ImpactMeasurementAPI.Logic;
 using ImpactMeasurementAPI.Models;
 
@@ -46,9 +45,5 @@ namespace ImpactMeasurementAPI.Data
             return _context.TrainingSessions.FirstOrDefault(t => t.Id == id);
         }
 
-        public IEnumerable<MomentarilyAcceleration> MomentarilyAccelerations()
-        {
-            return _context.MomentarilyAccelerations.ToList();
-        }
     }
 }

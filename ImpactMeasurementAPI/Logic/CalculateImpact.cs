@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using ImpactMeasurementAPI.Models;
@@ -9,20 +10,21 @@ namespace ImpactMeasurementAPI.Logic
        
         private readonly double _mass;
         private readonly TrainingSession _trainingSession;
-
-
+        
         public CalculateImpact(TrainingSession trainingSession, double mass)
         {
             _trainingSession = trainingSession;
             _mass = mass;
         }
 
-        public IEnumerable<double> CalculateAllImpacts()
+        public IEnumerable<Impact> CalculateAllImpacts()
         {
-            var impacts = new List<double>();
+            var impacts = new List<Impact>();
             
             //acceleration value to compare to the next value to detect impact
-            double a1 = 0;
+            double accelerationZ = 0;
+            double accelerationY = 0;
+            double accelerationX = 0;
 
             if (_trainingSession == null) return null;
             
@@ -31,21 +33,34 @@ namespace ImpactMeasurementAPI.Logic
             {
                 //If the acceleration towards the ground is still increasing,
                 //set a1 to the lowers value (=highest acceleration to the ground)
-                if (value.AccelerationZ < a1)
+                if (value.AccelerationZ < accelerationZ)
                 {
-                    a1 = value.AccelerationZ;
+                    accelerationZ = value.AccelerationZ;
+                    accelerationY = value.AccelerationY;
+                    accelerationX = value.AccelerationX;
                 }
 
                 //If the acceleration doesn't increase anymore, there will be impact
                 //When the acceleration hits 0 or above, there was or will be a point of impact and we need to add
                 //that to the list
-                if (!(a1 < 0) || !(value.AccelerationZ > a1) || !(value.AccelerationZ >= 0)) continue;
-                impacts.Add(-1*a1*_mass);
-                a1 = 0;
+                if (!(accelerationZ < 0) || !(value.AccelerationZ > accelerationZ) ||
+                    !(value.AccelerationZ >= 0)) continue;
+                var impactZ = Math.Abs(accelerationZ) * _mass;
+                var impactY = Math.Abs(accelerationY) * _mass;
+                var impactX = Math.Abs(accelerationX) * _mass;
+                
+                //Total impact is the Resultant Force. Resultant force is calculated by using the Pythagorean Theorem twice
+                var totalImpact = Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(impactX, 2) + Math.Pow(impactY, 2)), 2) +
+                                            Math.Sqrt(Math.Pow(impactZ, 2)));
+                impacts.Add(new Impact() {ImpactForce = totalImpact});
 
+                accelerationZ = 0;
+                accelerationY = 0;
+                accelerationX = 0;
             }
 
             return impacts;
         }
+        
     }
 }

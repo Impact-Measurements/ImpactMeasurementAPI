@@ -1,5 +1,4 @@
 using AutoMapper;
-using ImpactMeasurementAPI.DTOs;
 using ImpactMeasurementAPI.Models;
 
 namespace ImpactMeasurementAPI.Profiles

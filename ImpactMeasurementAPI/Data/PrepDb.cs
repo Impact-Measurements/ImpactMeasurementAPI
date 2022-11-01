@@ -39,11 +39,8 @@ namespace ImpactMeasurementAPI.Data
             {
                 Console.WriteLine("--> seeding data");
 
-                context.TrainingSessions.Add(
-                    new TrainingSession() {StartingTime = new DateTime(2021,11,15)}
-                );
-
                 context.SaveChanges();
+
             }
             else
             {
