@@ -10,7 +10,8 @@ namespace ImpactMeasurementAPI.Logic
        
         private readonly double _mass;
         private readonly TrainingSession _trainingSession;
-        
+        public List<Impact> impacts;
+
         public CalculateImpact(TrainingSession trainingSession, double mass)
         {
             _trainingSession = trainingSession;
@@ -19,7 +20,7 @@ namespace ImpactMeasurementAPI.Logic
 
         public IEnumerable<Impact> CalculateAllImpacts()
         {
-            var impacts = new List<Impact>();
+            impacts = new List<Impact>();
             
             //acceleration value to compare to the next value to detect impact
             double accelerationZ = 0;
@@ -43,21 +44,22 @@ namespace ImpactMeasurementAPI.Logic
                 //If the acceleration doesn't increase anymore, there will be impact
                 //When the acceleration hits 0 or above, there was or will be a point of impact and we need to add
                 //that to the list
-                if (!(accelerationZ < 0) || !(value.AccelerationZ > accelerationZ) ||
-                    !(value.AccelerationZ >= 0)) continue;
-                var impactZ = Math.Abs(accelerationZ) * _mass;
-                var impactY = Math.Abs(accelerationY) * _mass;
-                var impactX = Math.Abs(accelerationX) * _mass;
+                if (accelerationZ < 0 && value.AccelerationZ > accelerationZ && value.AccelerationZ>= 0)
+                { 
+                    var impactZ = Math.Abs(accelerationZ) * _mass;
+                    var impactY = Math.Abs(accelerationY) * _mass;
+                    var impactX = Math.Abs(accelerationX) * _mass;
                 
-                //Total impact is the Resultant Force. Resultant force is calculated by using the Pythagorean Theorem twice
-                var totalImpact = Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(impactX, 2) + Math.Pow(impactY, 2)), 2) +
-                                            Math.Sqrt(Math.Pow(impactZ, 2)));
+                    //Total impact is the Resultant Force. Resultant force is calculated by using the Pythagorean Theorem twice
+                    var totalImpact = Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(impactX, 2) + Math.Pow(impactY, 2)), 2) +
+                                                Math.Sqrt(Math.Pow(impactZ, 2)));
                 
-                impacts.Add(new Impact() {ImpactForce = totalImpact});
+                    impacts.Add(new Impact() {ImpactForce = totalImpact});
 
-                accelerationZ = 0;
-                accelerationY = 0;
-                accelerationX = 0;
+                    accelerationZ = 0;
+                    accelerationY = 0;
+                    accelerationX = 0;
+                }
             }
 
             return impacts;

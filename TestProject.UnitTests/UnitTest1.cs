@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using ImpactMeasurementAPI.Logic;
 using ImpactMeasurementAPI.Models;
 using NUnit.Framework;
 
@@ -80,11 +81,6 @@ namespace TestProject.UnitTests
                 AccelerationX = -5.476443, AccelerationY = -9.666263,
                 AccelerationZ = 7.893936, Frame = 12
             };
-            MomentarilyAcceleration ma14 = new MomentarilyAcceleration()
-            {
-                AccelerationX = -1.772400, AccelerationY = -0.827710,
-                AccelerationZ = -0.750875, Frame = 13
-            };
 
             momentarilyAccelerations = new List<MomentarilyAcceleration>();
             momentarilyAccelerations.Add(ma1);
@@ -100,7 +96,6 @@ namespace TestProject.UnitTests
             momentarilyAccelerations.Add(ma11);
             momentarilyAccelerations.Add(ma12);
             momentarilyAccelerations.Add(ma13);
-            momentarilyAccelerations.Add(ma14);
             
             
 
@@ -109,8 +104,6 @@ namespace TestProject.UnitTests
             foreach (var i in momentarilyAccelerations)
             {
                 i.TrainingSessionId = trainingSession.Id;
-                Console.WriteLine(i);
-                momentarilyAccelerations.Add(i);
             }
 
         }
@@ -119,7 +112,13 @@ namespace TestProject.UnitTests
         public void Test1()
         {
             Setup();
-            Console.WriteLine(JsonSerializer.Serialize(momentarilyAccelerations));
+            CalculateImpact calculateImpact = new CalculateImpact(trainingSession, 75);
+            calculateImpact.CalculateAllImpacts();
+            foreach (var impact in calculateImpact.impacts)
+            {
+                Console.WriteLine(impact.ImpactForce);
+            }
+            
         }
     }
 }
