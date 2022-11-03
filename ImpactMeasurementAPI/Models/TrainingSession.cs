@@ -13,6 +13,7 @@ namespace ImpactMeasurementAPI.Models
 
         public List<MomentarilyAcceleration> FreeAcceleration { get; set; }
 
+        [Required]
         public DateTime StartingTime { get; set; }
 
         // public Sport Sport;
