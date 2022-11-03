@@ -52,6 +52,7 @@ namespace ImpactMeasurementAPI.Logic
                 //Total impact is the Resultant Force. Resultant force is calculated by using the Pythagorean Theorem twice
                 var totalImpact = Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(impactX, 2) + Math.Pow(impactY, 2)), 2) +
                                             Math.Sqrt(Math.Pow(impactZ, 2)));
+                
                 impacts.Add(new Impact() {ImpactForce = totalImpact});
 
                 accelerationZ = 0;
