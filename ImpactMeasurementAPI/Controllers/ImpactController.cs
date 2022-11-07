@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AutoMapper;
 using ImpactMeasurementAPI.Data;
 using ImpactMeasurementAPI.Models;
@@ -27,6 +28,13 @@ namespace ImpactMeasurementAPI.Controllers
 
             return Ok(trainingSession);
         }
-        
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromForm] CsvFile document)
+        {
+            //Hier de verwerking naar de database 
+
+            return Ok($"Processed Training {document.Title} training version:{document.Version} - {document.File.FileName} thanks for submitting!");
+        }
     }
 }
