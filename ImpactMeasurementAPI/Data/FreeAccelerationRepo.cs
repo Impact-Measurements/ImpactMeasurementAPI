@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ImpactMeasurementAPI.Logic;
 using ImpactMeasurementAPI.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ImpactMeasurementAPI.Data
 {
@@ -20,24 +22,36 @@ namespace ImpactMeasurementAPI.Data
             return (_context.SaveChanges() >= 0);
         }
 
-        public IEnumerable<double> GetAllFreeAccelerationValuesFromSession(int id)
+        public IEnumerable<MomentarilyAcceleration> GetAllFreeAccelerationValuesFromSession(int id)
         {
-            throw new System.NotImplementedException();
+            return _context.MomentarilyAccelerations
+                .Where(c => c.TrainingSessionId == id)
+                .ToList();
         }
 
         public double GetHighestForceOfImpactFromSession(int id)
         {
-            throw new System.NotImplementedException();
+            return GetAllImpactDataFromSession(id).Max(d => d.ImpactForce);
         }
 
-        public IEnumerable<double> GetAllImpactDataFromSession(int id)
+        public IEnumerable<Impact> GetAllImpactDataFromSession(int id)
         {
-            throw new System.NotImplementedException();
+            TrainingSession trainingSession = GetTrainingSession(id);
+
+            CalculateImpact calculateImpact = new CalculateImpact(trainingSession, 75);
+            return calculateImpact.CalculateAllImpacts();
         }
 
         public double GetAverageForceOfImpactFromSession(int id)
         {
-            throw new System.NotImplementedException();
+            var impactFromTrainingSession = GetAllImpactDataFromSession(id);
+
+            if (impactFromTrainingSession != null && impactFromTrainingSession.Count() != 0)
+            {
+                return impactFromTrainingSession.Average(d => d.ImpactForce);
+            }
+
+            throw new ArgumentNullException();
         }
 
         public TrainingSession GetTrainingSession(int id)
