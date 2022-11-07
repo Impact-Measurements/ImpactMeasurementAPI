@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1700.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImpactMeasurementAPI", "ImpactMeasurementAPI.csproj", "{1787360A-2CA9-4AF1-8673-71E3CCAD9B4F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1787360A-2CA9-4AF1-8673-71E3CCAD9B4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1787360A-2CA9-4AF1-8673-71E3CCAD9B4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1787360A-2CA9-4AF1-8673-71E3CCAD9B4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1787360A-2CA9-4AF1-8673-71E3CCAD9B4F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7BDB9B26-0F09-4F12-B248-A0D597E36C47}
+	EndGlobalSection
+EndGlobal
