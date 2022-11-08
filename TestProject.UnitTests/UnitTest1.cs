@@ -113,8 +113,7 @@ namespace TestProject.UnitTests
         {
             Setup();
             CalculateImpact calculateImpact = new CalculateImpact(trainingSession, 75);
-            calculateImpact.CalculateAllImpacts();
-            foreach (var impact in calculateImpact.impacts)
+            foreach (var impact in calculateImpact.CalculateAllImpacts())
             {
                 Console.WriteLine(impact.ImpactForce);
             }

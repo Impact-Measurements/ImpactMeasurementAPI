@@ -1,7 +1,7 @@
 namespace ImpactMeasurementAPI.DTOs
 {
     
-    public class HighestImpact
+    public class ReadImpact
     {
         public int Id;
 

@@ -10,7 +10,7 @@ namespace ImpactMeasurementAPI.Logic
        
         private readonly double _mass;
         private readonly TrainingSession _trainingSession;
-        public List<Impact> impacts;
+        private List<Impact> impacts;
 
         public CalculateImpact(TrainingSession trainingSession, double mass)
         {
