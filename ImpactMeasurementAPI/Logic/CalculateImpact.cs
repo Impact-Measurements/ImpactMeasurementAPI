@@ -54,7 +54,11 @@ namespace ImpactMeasurementAPI.Logic
                     var totalImpact = Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(impactX, 2) + Math.Pow(impactY, 2)), 2) +
                                                 Math.Sqrt(Math.Pow(impactZ, 2)));
                 
-                    impacts.Add(new Impact() {ImpactForce = totalImpact});
+                    impacts.Add(new Impact()
+                    {
+                        ImpactForce = totalImpact, ImpactDirectionX = impactX, ImpactDirectionY = impactY
+                        ,ImpactDirectionZ = impactZ
+                    });
 
                     accelerationZ = 0;
                     accelerationY = 0;

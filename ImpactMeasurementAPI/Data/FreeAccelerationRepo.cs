@@ -59,5 +59,24 @@ namespace ImpactMeasurementAPI.Data
             return _context.TrainingSessions.FirstOrDefault(t => t.Id == id);
         }
 
+        public void CreateTrainingSession(TrainingSession trainingSession)
+        {
+            if (trainingSession == null)
+            {
+                throw new ArgumentNullException(nameof(trainingSession));
+            }
+
+            _context.TrainingSessions.Add(trainingSession);
+        }
+
+        public void CreateMomentarilyAcceleration(MomentarilyAcceleration momentarilyAcceleration)
+        {
+            if (momentarilyAcceleration == null)
+            {
+                throw new ArgumentNullException(nameof(momentarilyAcceleration));
+            }
+
+            _context.MomentarilyAccelerations.Add(momentarilyAcceleration);
+        }
     }
 }

@@ -49,7 +49,8 @@ namespace ImpactMeasurementAPI
 
             if (_env.IsProduction())
             {
-                
+                services.AddDbContext<AppDbContext>(opt =>
+                    opt.UseSqlServer(Configuration.GetConnectionString("")));
             }
             else
             {

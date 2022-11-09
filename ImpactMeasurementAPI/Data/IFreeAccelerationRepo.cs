@@ -18,5 +18,9 @@ namespace ImpactMeasurementAPI.Data
 
         TrainingSession GetTrainingSession(int id);
 
+        void CreateTrainingSession(TrainingSession trainingSession);
+
+        void CreateMomentarilyAcceleration(MomentarilyAcceleration momentarilyAcceleration);
+
     }
 }
