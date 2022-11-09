@@ -15,9 +15,7 @@ namespace ImpactMeasurementAPI.Profiles
                     opt => opt.MapFrom(src => src.StartingTime));
             CreateMap<TrainingSession, ReadTrainingSession>()
                 .ForMember(dest => dest.StartingTime,
-                    opt => opt.MapFrom(src => src.StartingTime))
-                .ForMember(dest => dest.FreeAcceleration,
-                    opt => opt.MapFrom(src => src.FreeAcceleration));
+                    opt => opt.MapFrom(src => src.StartingTime));
             CreateMap<CreateMomentarilyAcceleration, MomentarilyAcceleration>()
                 .ForMember(dest => dest.Frame,
                     opt => opt.MapFrom(src => src.Frame))
@@ -40,6 +38,7 @@ namespace ImpactMeasurementAPI.Profiles
                     opt => opt.MapFrom(src => src.ImpactDirectionY))
                 .ForMember(dest => dest.ImpactDirectionZ,
                     opt => opt.MapFrom(src => src.ImpactDirectionZ));
+            CreateMap<MomentarilyAcceleration, ReadFreeAcceleration>();
         }
     }
 }

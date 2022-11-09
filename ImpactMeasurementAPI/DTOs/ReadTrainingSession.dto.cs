@@ -8,8 +8,6 @@ namespace ImpactMeasurementAPI.DTOs
     {
         public int Id { get; set; }
 
-        public ICollection<MomentarilyAcceleration> FreeAcceleration { get; set; }
-
         public DateTime StartingTime { get; set; }
     }
 }

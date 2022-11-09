@@ -10,7 +10,7 @@ namespace ImpactMeasurementAPI.Data
 
         IEnumerable<MomentarilyAcceleration> GetAllFreeAccelerationValuesFromSession(int id);
 
-        double GetHighestForceOfImpactFromSession(int id);
+        Impact GetHighestForceOfImpactFromSession(int id);
 
         IEnumerable<Impact> GetAllImpactDataFromSession(int id);
 

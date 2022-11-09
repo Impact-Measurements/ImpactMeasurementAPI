@@ -9,12 +9,12 @@ namespace ImpactMeasurementAPI.Logic
     {
        
         private readonly double _mass;
-        private readonly TrainingSession _trainingSession;
+        private readonly List<MomentarilyAcceleration> _momentarilyAccelerations;
         private List<Impact> impacts;
 
-        public CalculateImpact(TrainingSession trainingSession, double mass)
+        public CalculateImpact(List<MomentarilyAcceleration> momentarilyAccelerations, double mass)
         {
-            _trainingSession = trainingSession;
+            _momentarilyAccelerations = momentarilyAccelerations;
             _mass = mass;
         }
 
@@ -27,10 +27,10 @@ namespace ImpactMeasurementAPI.Logic
             double accelerationY = 0;
             double accelerationX = 0;
 
-            if (_trainingSession == null) return null;
+            if (_momentarilyAccelerations == null) return null;
             
             //For each acceleration value, see if the acceleration is going towards the ground
-            foreach (var value in _trainingSession.FreeAcceleration)
+            foreach (var value in _momentarilyAccelerations)
             {
                 //If the acceleration towards the ground is still increasing,
                 //set a1 to the lowers value (=highest acceleration to the ground)

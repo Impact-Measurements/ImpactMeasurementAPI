@@ -29,16 +29,17 @@ namespace ImpactMeasurementAPI.Data
                 .ToList();
         }
 
-        public double GetHighestForceOfImpactFromSession(int id)
+        public Impact GetHighestForceOfImpactFromSession(int id)
         {
-            return GetAllImpactDataFromSession(id).Max(d => d.ImpactForce);
+            return GetAllImpactDataFromSession(id).FirstOrDefault();
         }
 
         public IEnumerable<Impact> GetAllImpactDataFromSession(int id)
         {
             TrainingSession trainingSession = GetTrainingSession(id);
+            var momentarilyAccelerations = GetAllFreeAccelerationValuesFromSession(id);
 
-            CalculateImpact calculateImpact = new CalculateImpact(trainingSession, 75);
+            CalculateImpact calculateImpact = new CalculateImpact(momentarilyAccelerations.ToList(), 75);
             return calculateImpact.CalculateAllImpacts();
         }
 

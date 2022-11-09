@@ -6,8 +6,6 @@ namespace ImpactMeasurementAPI.DTOs
     public class ReadFreeAcceleration
     {        
         public int Id { get; set; }
-        
-        public TrainingSession TrainingSession { get; set; }
 
         public int TrainingSessionId { get; set; }
         
