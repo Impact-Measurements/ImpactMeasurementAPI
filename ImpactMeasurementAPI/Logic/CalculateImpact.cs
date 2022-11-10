@@ -46,9 +46,9 @@ namespace ImpactMeasurementAPI.Logic
                 //that to the list
                 if (accelerationZ < 0 && value.AccelerationZ > accelerationZ && value.AccelerationZ>= 0)
                 { 
-                    var impactZ = Math.Abs(accelerationZ) * _mass;
-                    var impactY = Math.Abs(accelerationY) * _mass;
-                    var impactX = Math.Abs(accelerationX) * _mass;
+                    var impactZ = accelerationZ * _mass;
+                    var impactY = accelerationY * _mass;
+                    var impactX = accelerationX * _mass;
                 
                     //Total impact is the Resultant Force. Resultant force is calculated by using the Pythagorean Theorem twice
                     var totalImpact = Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(impactX, 2) + Math.Pow(impactY, 2)), 2) +
