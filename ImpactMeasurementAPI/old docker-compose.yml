@@ -1,0 +1,87 @@
+version: '3.4'
+
+#networks:
+#  impact_measurement_api-dev:
+#    driver: bridge
+
+services:
+  impact_measurement_api:
+    image: impact_measurement_api:latest
+    depends_on:
+      - "db"
+#      - "postgres"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+#    environment:
+#      DB_CONNECTION_STRING: "host=db;port=3306;database=app_db;username=db_user;password=db_user_pass"
+#    networks:
+#      - impact_measurement_api-dev
+
+#  postgres:
+#    image: postgres:latest
+#    ports:
+#      - "5432"
+#    restart: always
+#    volumes:
+#      - db_volume:/var/lib/postgresql/data
+#      - ./dbscripts/seed.sql :/docker-entrypoint-initdb.d/seed.sql
+#    environment:
+#      POSTGRES_USER: "bloguser"
+#      POSTGRES_PASSWORD: "bloguser"
+#      POSTGRES_DB: "blogdb"
+#    networks:
+#      - impact_measurement_api-dev
+#        
+#  pgadmin:
+#    image: dpage/pgadmin4:4.23
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: admin@pgadmin.com
+#      PGADMIN_DEFAULT_PASSWORD: password
+#      PGADMIN_LISTEN_PORT: 80
+#    ports:
+#      - 15432:80
+#    volumes:
+#      - pgadmin:/var/lib/pgadmin
+#    depends_on:
+#      - postgres
+        
+#volumes:
+#  db_volume:
+
+  db:
+    image: mysql:5.7
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: my_secret_password
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+#    ports:
+#      - "6033:3306"
+#    expose:
+#      -  "3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+#    networks:
+#        - impact_measurement_api-dev
+        
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin
+#    container_name: pma
+#    links:
+#      - db
+#    environment:
+#      PMA_HOST: db
+#      PMA_PORT: 3306
+#      PMA_ARBITRARY: 1
+#    restart: always
+#    ports:
+#      - 8081:80
+#    networks:
+#      - impact_measurement_api-dev
+        
+volumes:
+  dbdata:

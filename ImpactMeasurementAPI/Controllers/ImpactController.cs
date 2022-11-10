@@ -1,13 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using ImpactMeasurementAPI.Data;
 using ImpactMeasurementAPI.DTOs;
 using ImpactMeasurementAPI.Logic;
 using ImpactMeasurementAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Text.Json;
 
 namespace ImpactMeasurementAPI.Controllers
@@ -35,6 +39,34 @@ namespace ImpactMeasurementAPI.Controllers
             }
 
             return NotFound();
+        }
+        
+        //TODO change to post once csv upload works
+        [HttpGet("trainingsession/save", Name = "SaveTrainingSession")]
+        public ActionResult<string> SaveTrainingSession()
+        {
+            DatabaseController dbc = new DatabaseController();
+            
+            try
+            {
+                var records = CsvController.ParseCSV();
+                // return records[0].FreeAcc_X.ToString();
+                try
+                {
+                    dbc.SaveTraining(records);
+                    // return dbc.InsertTraining().ToString();
+                    return Ok();
+                }
+                catch (Exception e)
+                {
+                    return NotFound("2" + e.Message);
+                }
+            }
+            catch(Exception e)
+            {
+                return NotFound("1" + e.Message);
+            }
+            
         }
 
         [HttpGet("acceleration/all/{trainingSessionId}", Name = "GetAllFreeAcceleration")]

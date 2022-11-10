@@ -47,25 +47,29 @@ namespace ImpactMeasurementAPI
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "ImpactMeasurementAPI", Version = "v1"});
             });
 
-            if (_env.IsProduction())
-            {
-                services.AddDbContext<AppDbContext>(opt =>
-                    opt.UseSqlServer(Configuration.GetConnectionString("")));
-            }
-            else
-            {
-                Console.WriteLine("--> Using InMemory Db");
-                services.AddDbContext<AppDbContext>(opt =>
-                    opt.UseInMemoryDatabase("InMemory"));
-            }
+            // if (_env.IsProduction())
+            // {
+            //     
+            // }
+            // else
+            // {
+            //     Console.WriteLine("--> Using InMemory Db");
+            //     services.AddDbContext<AppDbContext>(opt =>
+            //         opt.UseInMemoryDatabase("InMemory"));
+            // }
+            var connectionString = Configuration["mysqlconnection:connectionString2"];
 
+            services.AddDbContext<AppDbContext>(opt =>
+                // opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+                opt.UseMySQL(connectionString));
+            
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
-
+            
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            if (env.IsDevelopment() || env.IsProduction())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
