@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using ImpactMeasurementAPI.Data;
 using ImpactMeasurementAPI.DTOs;
+using ImpactMeasurementAPI.Logic;
 using ImpactMeasurementAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage;
+using System.Text.Json;
 
 namespace ImpactMeasurementAPI.Controllers
 {
@@ -68,7 +70,7 @@ namespace ImpactMeasurementAPI.Controllers
         }
 
         [HttpGet("acceleration/all/{trainingSessionId}", Name = "GetAllFreeAcceleration")]
-        public ActionResult<TrainingSession> GetFreeAcceleration(int trainingSessionId)
+        public ActionResult<IEnumerable<ReadFreeAcceleration>> GetFreeAcceleration(int trainingSessionId)
         {
             var freeAcceleration = _repository.GetAllFreeAccelerationValuesFromSession(trainingSessionId);
 
@@ -80,7 +82,7 @@ namespace ImpactMeasurementAPI.Controllers
             return NotFound();
         }
         
-        [HttpGet("acceleration/average/{trainingSessionId}", Name = "GetAverageImpact")]
+        [HttpGet("impact/average/{trainingSessionId}", Name = "GetAverageImpact")]
         public ActionResult<double> GetAverageImpact(int trainingSessionId)
         {
             if (!TrainingSessionExists(trainingSessionId))
@@ -88,14 +90,14 @@ namespace ImpactMeasurementAPI.Controllers
                 return NotFound();
             }
             
-            var averageImpact = _repository.GetAverageForceOfImpactFromSession(trainingSessionId);
+            double averageImpact = _repository.GetAverageForceOfImpactFromSession(trainingSessionId);
             
-            return Ok(_mapper.Map<ReadImpact>(averageImpact));
+            return Ok(averageImpact);
 
         }
         
         [HttpGet("impact/all/{trainingSessionId}", Name = "GetAllImpact")]
-        public ActionResult<Impact> GetAllImpact(int trainingSessionId)
+        public ActionResult<IEnumerable<ReadImpact>> GetAllImpact(int trainingSessionId)
         {
             var allImpact = _repository.GetAllImpactDataFromSession(trainingSessionId);
 
@@ -117,10 +119,44 @@ namespace ImpactMeasurementAPI.Controllers
                 return NotFound();
             }
             
-            var highestImpact = _repository.GetHighestForceOfImpactFromSession(trainingSessionId);
-
+            Impact highestImpact = _repository.GetHighestForceOfImpactFromSession(trainingSessionId);
             return Ok(_mapper.Map<ReadImpact>(highestImpact));
 
+        }
+
+        [HttpPost("training/create", Name = "CreateTrainingSession")]
+        public ActionResult<ReadTrainingSession> CreateTrainingSession(CreateTrainingSession createTrainingSession)
+        {
+            TrainingSession trainingSession = new TrainingSession();
+            trainingSession = _mapper.Map<TrainingSession>(createTrainingSession);
+            _repository.CreateTrainingSession(trainingSession);
+            _repository.SaveChanges();
+            Console.WriteLine(JsonSerializer.Serialize(trainingSession));
+            return _mapper.Map<ReadTrainingSession>(trainingSession);
+        }
+        
+        [HttpPost("acceleration/create", Name = "CreateFreeAcceleration")]
+        public ActionResult<ReadImpact> CreateFreeAcceleration(List<CreateMomentarilyAcceleration> createMomentarilyAccelerations)
+        {
+            List<MomentarilyAcceleration> momentarilyAccelerations = new List<MomentarilyAcceleration>();
+
+            foreach (var createMomentarilyAcceleration in createMomentarilyAccelerations)
+            {
+                MomentarilyAcceleration momentarilyAcceleration =
+                    _mapper.Map<MomentarilyAcceleration>(createMomentarilyAcceleration);
+                
+                _repository.CreateMomentarilyAcceleration(momentarilyAcceleration);
+                _repository.SaveChanges();
+                
+                momentarilyAccelerations.Add(momentarilyAcceleration);
+            }
+
+            _repository.SaveChanges();
+            
+            CalculateImpact calculateImpact = new CalculateImpact(momentarilyAccelerations, 74);
+            Impact highestImpact = calculateImpact.CalculateAllImpacts().FirstOrDefault();
+            var readImpact = _mapper.Map<ReadImpact>(highestImpact);
+            return readImpact;
         }
 
         private bool TrainingSessionExists(int id)

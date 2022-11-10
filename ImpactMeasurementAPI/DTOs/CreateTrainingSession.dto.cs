@@ -4,10 +4,8 @@ using ImpactMeasurementAPI.Models;
 
 namespace ImpactMeasurementAPI.DTOs
 {
-    public class ReadTrainingSession
+    public class CreateTrainingSession
     {
-        public int Id { get; set; }
-
         public DateTime StartingTime { get; set; }
     }
 }
