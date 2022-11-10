@@ -7,6 +7,9 @@ RUN dotnet publish "ImpactMeasurementAPI.csproj" -c Release -o /publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 as final
 WORKDIR /app
+ENV ASPNETCORE_URLS http://+:5070
 COPY --from=build /publish .
 
-ENTRYPOINT ["dotnet", "ImpactMeasurementAPI.dll"]
+EXPOSE 5070
+
+ENTRYPOINT ["dotnet", "ImpactMeasurementAPI.dll","--server.urls", "https://+:5070"]

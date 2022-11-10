@@ -39,6 +39,6 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:5000"
+      - "5070:5070"
 volumes:
   dbdata:

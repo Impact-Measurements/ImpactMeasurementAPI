@@ -21,4 +21,13 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="TrainingFiles" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="TrainingFiles\training data.csv" />
+      <EmbeddedResource Include="TrainingFiles\training data.csv" />
+    </ItemGroup>
+
 </Project>
