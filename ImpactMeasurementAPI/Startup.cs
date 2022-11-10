@@ -47,22 +47,21 @@ namespace ImpactMeasurementAPI
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "ImpactMeasurementAPI", Version = "v1"});
             });
 
-            // if (_env.IsProduction())
-            // {
-            //     
-            // }
-            // else
-            // {
-            //     Console.WriteLine("--> Using InMemory Db");
-            //     services.AddDbContext<AppDbContext>(opt =>
-            //         opt.UseInMemoryDatabase("InMemory"));
-            // }
-            var connectionString = Configuration["mysqlconnection:connectionString2"];
+            if (_env.IsProduction())
+            {
+                var connectionString = Configuration["mysqlconnection:connectionString2"];
 
-            services.AddDbContext<AppDbContext>(opt =>
-                // opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
-                opt.UseMySQL(connectionString));
-            
+                services.AddDbContext<AppDbContext>(opt =>
+                    // opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+                    opt.UseMySQL(connectionString));
+            }
+            else
+            {
+                Console.WriteLine("--> Using InMemory Db");
+                services.AddDbContext<AppDbContext>(opt =>
+                    opt.UseInMemoryDatabase("InMemory"));
+            }
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
             
