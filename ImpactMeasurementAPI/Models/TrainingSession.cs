@@ -14,6 +14,10 @@ namespace ImpactMeasurementAPI.Models
         public ICollection<MomentarilyAcceleration> FreeAcceleration { get; set; }
 
         public DateTime StartingTime { get; set; }
+        
+        public int EffectivenessScore { get; set; }
+        
+        public int PainfulnessScore { get; set; }
 
         // public Sport Sport;
         //

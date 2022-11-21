@@ -15,5 +15,7 @@ namespace ImpactMeasurementAPI.Models
         public double ImpactDirectionY { get; set; }
         
         public double ImpactDirectionZ { get; set; }
+        
+        public Color Color { get; set; }
     }
 }

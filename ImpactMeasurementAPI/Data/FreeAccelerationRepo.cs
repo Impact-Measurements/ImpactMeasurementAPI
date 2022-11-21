@@ -31,7 +31,9 @@ namespace ImpactMeasurementAPI.Data
 
         public Impact GetHighestForceOfImpactFromSession(int id)
         {
-            return GetAllImpactDataFromSession(id).FirstOrDefault();
+            return GetAllImpactDataFromSession(id)
+                .OrderBy(i => i.ImpactForce)
+                .FirstOrDefault();
         }
 
         public IEnumerable<Impact> GetAllImpactDataFromSession(int id)
