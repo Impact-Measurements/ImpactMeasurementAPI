@@ -10,8 +10,8 @@ namespace ImpactMeasurementAPI.Controllers
     [ApiController]
     public class FileController : ControllerBase
     {
-        [HttpPost("postTrainging", Name ="ProcessTrainingDb")]
-        public async Task<IActionResult> PostTrainingFile([FromForm] CsvFile document)
+        [HttpPost("training", Name ="ProcessTrainingDb")]
+        public async Task<IActionResult> PostTrainingFile([FromForm] CsvFile document, [FromForm]int effective, [FromForm]int pain)
         {
             //Hier de verwerking naar de database 
             try
