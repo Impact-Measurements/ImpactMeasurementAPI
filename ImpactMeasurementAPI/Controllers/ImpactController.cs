@@ -13,11 +13,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Text.Json;
+using Microsoft.AspNetCore.Cors;
 
 namespace ImpactMeasurementAPI.Controllers
 {
     [Route("api/")]
     [ApiController]
+    [EnableCors("CorsPolicy")]
     public class ImpactController : ControllerBase
     {
         private readonly IMapper _mapper;
