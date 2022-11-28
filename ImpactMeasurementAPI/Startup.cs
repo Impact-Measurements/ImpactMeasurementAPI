@@ -76,10 +76,10 @@ namespace ImpactMeasurementAPI
             }
 
             app.UseHttpsRedirection();
-            app.UseCors("CorsPolicy");
+            
 
             app.UseRouting();
-
+            app.UseCors("CorsPolicy");
             app.UseAuthorization();
 
             PrepDb.PrepPopulation(app, env.IsProduction());
