@@ -9,5 +9,11 @@ namespace ImpactMeasurementAPI.DTOs
         public int Id { get; set; }
 
         public DateTime StartingTime { get; set; }
+        
+        public int EffectivenessScore { get; set; }
+        
+        public int PainfulnessScore { get; set; }
+
+        public IEnumerable<ReadImpact> Impacts { get; set; }
     }
 }

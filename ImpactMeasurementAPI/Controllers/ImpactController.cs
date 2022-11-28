@@ -33,41 +33,46 @@ namespace ImpactMeasurementAPI.Controllers
         public ActionResult<TrainingSession> GetTrainingSession(int trainingSessionId)
         {
             var trainingSession = _repository.GetTrainingSession(trainingSessionId);
+
+            var readTraining = _mapper.Map<ReadTrainingSession>(trainingSession);
+            readTraining.Impacts =
+                _mapper.Map<IEnumerable<ReadImpact>>(_repository.GetAllImpactDataFromSession(trainingSessionId));
+            
             if (trainingSession != null)
             {
-                return Ok(_mapper.Map<ReadTrainingSession>(trainingSession));
+                return Ok(readTraining);
             }
-
+            
             return NotFound();
         }
         
-        //TODO change to post once csv upload works
-        [HttpGet("trainingsession/save", Name = "SaveTrainingSession")]
-        public ActionResult<string> SaveTrainingSession()
-        {
-            DatabaseController dbc = new DatabaseController();
-            
-            try
-            {
-                var records = CsvController.ParseCSV();
-                // return records[0].FreeAcc_X.ToString();
-                try
-                {
-                    dbc.SaveTraining(records);
-                    // return dbc.InsertTraining().ToString();
-                    return Ok();
-                }
-                catch (Exception e)
-                {
-                    return NotFound("2" + e.Message);
-                }
-            }
-            catch(Exception e)
-            {
-                return NotFound("1" + e.Message);
-            }
-            
-        }
+        // //TODO change to post once csv upload works
+        // [HttpGet("trainingsession/save", Name = "SaveTrainingSession")]
+        // public ActionResult<string> SaveTrainingSession()
+        // {
+        //     DatabaseController dbc = new DatabaseController();
+        //     
+        //     try
+        //     {
+        //         var records = CsvController.ParseCSV();
+        //         // return records[0].FreeAcc_X.ToString();
+        //         try
+        //         {
+        //             dbc.SaveTraining(records);
+        //             // return dbc.InsertTraining().ToString();
+        //             return Ok();
+        //         }
+        //         catch (Exception e)
+        //         {
+        //             return NotFound("2" + e.Message);
+        //         }
+        //     }
+        //     catch(Exception e)
+        //     {
+        //         return NotFound("1" + e.Message);
+        //     }
+        //     
+        // }
 
         [HttpGet("acceleration/all/{trainingSessionId}", Name = "GetAllFreeAcceleration")]
         public ActionResult<IEnumerable<ReadFreeAcceleration>> GetFreeAcceleration(int trainingSessionId)
@@ -132,6 +137,16 @@ namespace ImpactMeasurementAPI.Controllers
             _repository.CreateTrainingSession(trainingSession);
             _repository.SaveChanges();
             Console.WriteLine(JsonSerializer.Serialize(trainingSession));
+            return _mapper.Map<ReadTrainingSession>(trainingSession);
+        }
+        
+        [HttpPost("training/update", Name = "UpdateTrainingSession")]
+        public ActionResult<ReadTrainingSession> CreateTrainingSession(UpdateTrainingSession updateTrainingSession)
+        {
+            TrainingSession trainingSession = _repository.GetTrainingSession(updateTrainingSession.Id);
+            trainingSession.EffectivenessScore = updateTrainingSession.EffectivenessScore;
+            trainingSession.PainfulnessScore = updateTrainingSession.PainfulnessScore;
+            _repository.SaveChanges();
             return _mapper.Map<ReadTrainingSession>(trainingSession);
         }
         

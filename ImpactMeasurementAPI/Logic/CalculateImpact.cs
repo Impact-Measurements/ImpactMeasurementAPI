@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using ImpactMeasurementAPI.Models;
 
 namespace ImpactMeasurementAPI.Logic
@@ -68,7 +69,7 @@ namespace ImpactMeasurementAPI.Logic
                     Impact impact = new Impact()
                     {
                         ImpactForce = totalImpact, ImpactDirectionX = impactX, ImpactDirectionY = impactY,
-                        ImpactDirectionZ = impactZ
+                        ImpactDirectionZ = impactZ, Frame = value.Frame
                     };
                     
                     //Register the color of the impact (red is bad, yellow is medium, green is good)

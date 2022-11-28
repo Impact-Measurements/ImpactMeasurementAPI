@@ -18,6 +18,8 @@ namespace ImpactMeasurementAPI.Models
         public int EffectivenessScore { get; set; }
         
         public int PainfulnessScore { get; set; }
+        
+        public ICollection<Impact> Impacts { get; set; }
 
         // public Sport Sport;
         //

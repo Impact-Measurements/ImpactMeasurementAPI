@@ -7,6 +7,13 @@ namespace ImpactMeasurementAPI.Models
         [Key]
         [Required]
         public int Id;
+        
+        public TrainingSession TrainingSession { get; set; }
+
+        [Required]
+        public int TrainingSessionId { get; set; }
+        
+        public int Frame { get; set; }
 
         public double ImpactForce { get; set; }
 
