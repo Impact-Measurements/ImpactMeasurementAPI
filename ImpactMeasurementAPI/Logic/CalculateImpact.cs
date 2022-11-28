@@ -12,7 +12,8 @@ namespace ImpactMeasurementAPI.Logic
         private readonly double _mass;
         private readonly List<MomentarilyAcceleration> _momentarilyAccelerations;
         private List<Impact> impacts;
-        
+
+        private readonly double _minimumImpactThreshold;
         private readonly double _highImpactThreshold;
         private readonly double _mediumImpactThreshold;
 
@@ -20,6 +21,13 @@ namespace ImpactMeasurementAPI.Logic
         {
             _momentarilyAccelerations = momentarilyAccelerations;
             _mass = mass;
+        }
+        
+        public CalculateImpact(List<MomentarilyAcceleration> momentarilyAccelerations, double mass, double minimumImpactThreshold)
+        {
+            _momentarilyAccelerations = momentarilyAccelerations;
+            _mass = mass;
+            _minimumImpactThreshold = minimumImpactThreshold;
         }
 
         public CalculateImpact(List<MomentarilyAcceleration> momentarilyAccelerations, User user)
@@ -66,28 +74,33 @@ namespace ImpactMeasurementAPI.Logic
                     var totalImpact = Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(impactX, 2) + Math.Pow(impactY, 2)), 2) +
                                                 Math.Sqrt(Math.Pow(impactZ, 2)));
 
-                    Impact impact = new Impact()
+                    //if minimum impact is defined and total impact is above the threshold, add it to the list.
+                    //if minimum impact is not defined, add total impact to the list.
+                    if (!(_minimumImpactThreshold >= 1) || !(totalImpact < _minimumImpactThreshold))
                     {
-                        ImpactForce = totalImpact, ImpactDirectionX = impactX, ImpactDirectionY = impactY,
-                        ImpactDirectionZ = impactZ, Frame = value.Frame
-                    };
-                    
-                    //Register the color of the impact (red is bad, yellow is medium, green is good)
-                    //If statement can be turned around if it turns out that more high impact forces are more common
-                    if (totalImpact < _mediumImpactThreshold)
-                    {
-                        impact.Color = Color.GREEN;
+                        Impact impact = new Impact()
+                        {
+                            ImpactForce = totalImpact, ImpactDirectionX = impactX, ImpactDirectionY = impactY,
+                            ImpactDirectionZ = impactZ, Frame = value.Frame
+                        };
+
+                        //Register the color of the impact (red is bad, yellow is medium, green is good)
+                        //If statement can be turned around if it turns out that more high impact forces are more common
+                        if (totalImpact < _mediumImpactThreshold)
+                        {
+                            impact.Color = Color.GREEN;
+                        }
+                        else if (totalImpact < _highImpactThreshold)
+                        {
+                            impact.Color = Color.YELLOW;
+                        }
+                        else
+                        {
+                            impact.Color = Color.RED;
+                        }
+
+                        impacts.Add(impact);
                     }
-                    else if(totalImpact < _highImpactThreshold)
-                    {
-                        impact.Color = Color.YELLOW;
-                    }
-                    else
-                    {
-                        impact.Color = Color.RED;
-                    }
-                    
-                    impacts.Add(impact);
 
                     accelerationZ = 0;
                     accelerationY = 0;

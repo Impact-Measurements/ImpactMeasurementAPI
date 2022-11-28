@@ -50,6 +50,20 @@ namespace ImpactMeasurementAPI.Data
             return calculateImpact.CalculateAllImpacts();
         }
 
+        public IEnumerable<Impact> GetAllImpactDataFromSession(int id, double minimumThreshold)
+        {
+            TrainingSession trainingSession = GetTrainingSession(id);
+            if (trainingSession == null)
+            {
+                throw new ArgumentNullException(nameof(trainingSession));
+            }
+            
+            var momentarilyAccelerations = GetAllFreeAccelerationValuesFromSession(id);
+
+            CalculateImpact calculateImpact = new CalculateImpact(momentarilyAccelerations.ToList(), 75, minimumThreshold);
+            return calculateImpact.CalculateAllImpacts();
+        }
+
         public double GetAverageForceOfImpactFromSession(int id)
         {
             var impactFromTrainingSession = GetAllImpactDataFromSession(id);

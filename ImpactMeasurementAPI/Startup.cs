@@ -42,6 +42,7 @@ namespace ImpactMeasurementAPI
             
             services.AddControllers();
             services.AddScoped<IFreeAccelerationRepo, FreeAccelerationRepo>();
+            services.AddScoped<IUserRepo, UserRepo>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "ImpactMeasurementAPI", Version = "v1"});

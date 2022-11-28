@@ -24,10 +24,12 @@ namespace ImpactMeasurementAPI.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IFreeAccelerationRepo _freeAccelerationRepository;
+        private readonly IUserRepo _userRepo;
         
-        public ImpactController(IFreeAccelerationRepo freeAccelerationRepository, IMapper mapper)
+        public ImpactController(IFreeAccelerationRepo freeAccelerationRepository, IUserRepo userRepo, IMapper mapper)
         {
             _freeAccelerationRepository = freeAccelerationRepository;
+            _userRepo = userRepo;
             _mapper = mapper;
         }
 
@@ -114,7 +116,21 @@ namespace ImpactMeasurementAPI.Controllers
             }
 
             return NotFound();
+        }
+        [HttpGet("impact/all/with_threshold/{trainingSessionId}/{userId}", Name = "GetAllImpactWithThreshold")]
+        public ActionResult<IEnumerable<ReadImpact>> GetAllImpact(int trainingSessionId, int userId)
+        {
 
+            var user = _userRepo.GetUserById(userId);
+            
+            var allImpact = _freeAccelerationRepository.GetAllImpactDataFromSession(trainingSessionId, user.MinimumImpactThreshold);
+
+            if (allImpact != null && allImpact.Count() != 0)
+            {
+                return Ok(_mapper.Map<IEnumerable<ReadImpact>>(allImpact));
+            }
+
+            return NotFound();
         }
         
         [HttpGet("impact/highest/{trainingSessionId}", Name = "GetHighestImpact")]

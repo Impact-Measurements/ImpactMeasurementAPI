@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using ImpactMeasurementAPI.Models;
 
 namespace ImpactMeasurementAPI.Data
@@ -17,12 +19,17 @@ namespace ImpactMeasurementAPI.Data
 
         public User GetUserById(int id)
         {
-            throw new System.NotImplementedException();
+            return _context.Users.FirstOrDefault(t => t.Id == id);
         }
 
         public void CreateUser(User user)
         {
-            throw new System.NotImplementedException();
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            _context.Users.Add(user);
         }
 
         public void UpdateUser(User user)

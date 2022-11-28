@@ -13,6 +13,7 @@ namespace ImpactMeasurementAPI.Data
         Impact GetHighestForceOfImpactFromSession(int id);
 
         IEnumerable<Impact> GetAllImpactDataFromSession(int id);
+        IEnumerable<Impact> GetAllImpactDataFromSession(int id, double minimumThreshold);
 
         double GetAverageForceOfImpactFromSession(int id);
 

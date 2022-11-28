@@ -27,5 +27,18 @@ namespace ImpactMeasurementAPI.Controllers
             _repository.SaveChanges();
             return _mapper.Map<ReadUser>(user);
         }
+        
+        [HttpPost("user/create", Name = "CreateUser")]
+        public ActionResult<ReadUser> CreateUser(CreateUser createUser)
+        {
+            var userModel = _mapper.Map<User>(createUser);
+            _repository.CreateUser(userModel);
+            _repository.SaveChanges();
+
+            var userReadDto = _mapper.Map<ReadUser>(userModel);
+
+            return userReadDto;
+        }
+
     }
 }
