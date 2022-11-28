@@ -23,22 +23,22 @@ namespace ImpactMeasurementAPI.Controllers
     public class ImpactController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IFreeAccelerationRepo _repository;
+        private readonly IFreeAccelerationRepo _freeAccelerationRepository;
         
-        public ImpactController(IFreeAccelerationRepo repository, IMapper mapper)
+        public ImpactController(IFreeAccelerationRepo freeAccelerationRepository, IMapper mapper)
         {
-            _repository = repository;
+            _freeAccelerationRepository = freeAccelerationRepository;
             _mapper = mapper;
         }
 
         [HttpGet("trainingsession/{trainingSessionId}", Name = "GetTrainingSession")]
         public ActionResult<TrainingSession> GetTrainingSession(int trainingSessionId)
         {
-            var trainingSession = _repository.GetTrainingSession(trainingSessionId);
+            var trainingSession = _freeAccelerationRepository.GetTrainingSession(trainingSessionId);
 
             var readTraining = _mapper.Map<ReadTrainingSession>(trainingSession);
             readTraining.Impacts =
-                _mapper.Map<IEnumerable<ReadImpact>>(_repository.GetAllImpactDataFromSession(trainingSessionId));
+                _mapper.Map<IEnumerable<ReadImpact>>(_freeAccelerationRepository.GetAllImpactDataFromSession(trainingSessionId));
             
             if (trainingSession != null)
             {
@@ -79,7 +79,7 @@ namespace ImpactMeasurementAPI.Controllers
         [HttpGet("acceleration/all/{trainingSessionId}", Name = "GetAllFreeAcceleration")]
         public ActionResult<IEnumerable<ReadFreeAcceleration>> GetFreeAcceleration(int trainingSessionId)
         {
-            var freeAcceleration = _repository.GetAllFreeAccelerationValuesFromSession(trainingSessionId);
+            var freeAcceleration = _freeAccelerationRepository.GetAllFreeAccelerationValuesFromSession(trainingSessionId);
 
             if (freeAcceleration != null && freeAcceleration.Count() != 0)
             {
@@ -97,7 +97,7 @@ namespace ImpactMeasurementAPI.Controllers
                 return NotFound();
             }
             
-            double averageImpact = _repository.GetAverageForceOfImpactFromSession(trainingSessionId);
+            double averageImpact = _freeAccelerationRepository.GetAverageForceOfImpactFromSession(trainingSessionId);
             
             return Ok(averageImpact);
 
@@ -106,7 +106,7 @@ namespace ImpactMeasurementAPI.Controllers
         [HttpGet("impact/all/{trainingSessionId}", Name = "GetAllImpact")]
         public ActionResult<IEnumerable<ReadImpact>> GetAllImpact(int trainingSessionId)
         {
-            var allImpact = _repository.GetAllImpactDataFromSession(trainingSessionId);
+            var allImpact = _freeAccelerationRepository.GetAllImpactDataFromSession(trainingSessionId);
 
             if (allImpact != null && allImpact.Count() != 0)
             {
@@ -126,7 +126,7 @@ namespace ImpactMeasurementAPI.Controllers
                 return NotFound();
             }
             
-            Impact highestImpact = _repository.GetHighestForceOfImpactFromSession(trainingSessionId);
+            Impact highestImpact = _freeAccelerationRepository.GetHighestForceOfImpactFromSession(trainingSessionId);
             return Ok(_mapper.Map<ReadImpact>(highestImpact));
 
         }
@@ -136,19 +136,19 @@ namespace ImpactMeasurementAPI.Controllers
         {
             TrainingSession trainingSession = new TrainingSession();
             trainingSession = _mapper.Map<TrainingSession>(createTrainingSession);
-            _repository.CreateTrainingSession(trainingSession);
-            _repository.SaveChanges();
+            _freeAccelerationRepository.CreateTrainingSession(trainingSession);
+            _freeAccelerationRepository.SaveChanges();
             Console.WriteLine(JsonSerializer.Serialize(trainingSession));
             return _mapper.Map<ReadTrainingSession>(trainingSession);
         }
-        
-        [HttpPost("training/update", Name = "UpdateTrainingSession")]
+
+        [HttpPut("training/update", Name = "UpdateTrainingSession")]
         public ActionResult<ReadTrainingSession> CreateTrainingSession(UpdateTrainingSession updateTrainingSession)
         {
-            TrainingSession trainingSession = _repository.GetTrainingSession(updateTrainingSession.Id);
+            TrainingSession trainingSession = _freeAccelerationRepository.GetTrainingSession(updateTrainingSession.Id);
             trainingSession.EffectivenessScore = updateTrainingSession.EffectivenessScore;
             trainingSession.PainfulnessScore = updateTrainingSession.PainfulnessScore;
-            _repository.SaveChanges();
+            _freeAccelerationRepository.SaveChanges();
             return _mapper.Map<ReadTrainingSession>(trainingSession);
         }
         
@@ -162,13 +162,13 @@ namespace ImpactMeasurementAPI.Controllers
                 MomentarilyAcceleration momentarilyAcceleration =
                     _mapper.Map<MomentarilyAcceleration>(createMomentarilyAcceleration);
                 
-                _repository.CreateMomentarilyAcceleration(momentarilyAcceleration);
-                _repository.SaveChanges();
+                _freeAccelerationRepository.CreateMomentarilyAcceleration(momentarilyAcceleration);
+                _freeAccelerationRepository.SaveChanges();
                 
                 momentarilyAccelerations.Add(momentarilyAcceleration);
             }
 
-            _repository.SaveChanges();
+            _freeAccelerationRepository.SaveChanges();
             
             CalculateImpact calculateImpact = new CalculateImpact(momentarilyAccelerations, 74);
             Impact highestImpact = calculateImpact.CalculateAllImpacts().FirstOrDefault();
@@ -178,7 +178,7 @@ namespace ImpactMeasurementAPI.Controllers
 
         private bool TrainingSessionExists(int id)
         {
-            if (_repository.GetTrainingSession(id) != null)
+            if (_freeAccelerationRepository.GetTrainingSession(id) != null)
             {
                 return true;
             }
