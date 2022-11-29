@@ -46,6 +46,7 @@ namespace ImpactMeasurementAPI.Logic
             double accelerationZ = 0;
             double accelerationY = 0;
             double accelerationX = 0;
+            int frame = 0;
 
             if (_momentarilyAccelerations == null) return null;
             
@@ -59,6 +60,7 @@ namespace ImpactMeasurementAPI.Logic
                     accelerationZ = value.AccelerationZ;
                     accelerationY = value.AccelerationY;
                     accelerationX = value.AccelerationX;
+                    frame = value.Frame;
                 }
 
                 //If the acceleration doesn't increase anymore, there will be impact
@@ -81,7 +83,7 @@ namespace ImpactMeasurementAPI.Logic
                         Impact impact = new Impact()
                         {
                             ImpactForce = totalImpact, ImpactDirectionX = impactX, ImpactDirectionY = impactY,
-                            ImpactDirectionZ = impactZ, Frame = value.Frame
+                            ImpactDirectionZ = impactZ, Frame = frame
                         };
 
                         //Register the color of the impact (red is bad, yellow is medium, green is good)

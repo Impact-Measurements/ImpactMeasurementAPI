@@ -102,7 +102,6 @@ namespace ImpactMeasurementAPI.Controllers
             double averageImpact = _freeAccelerationRepository.GetAverageForceOfImpactFromSession(trainingSessionId);
             
             return Ok(averageImpact);
-
         }
         
         [HttpGet("impact/all/{trainingSessionId}", Name = "GetAllImpact")]
@@ -117,8 +116,26 @@ namespace ImpactMeasurementAPI.Controllers
 
             return NotFound();
         }
+        
         [HttpGet("impact/all/with_threshold/{trainingSessionId}/{userId}", Name = "GetAllImpactWithThreshold")]
         public ActionResult<IEnumerable<ReadImpact>> GetAllImpact(int trainingSessionId, int userId)
+        {
+
+            var user = _userRepo.GetUserById(userId);
+            
+            var allImpact = _freeAccelerationRepository.GetAllImpactDataFromSession(trainingSessionId, user.MinimumImpactThreshold);
+
+            if (allImpact != null && allImpact.Count() != 0)
+            {
+                return Ok(_mapper.Map<IEnumerable<ReadImpact>>(allImpact));
+            }
+
+            return NotFound();
+        }
+        
+        
+        [HttpGet("impact/medium/with_threshold/{trainingSessionId}/{userId}", Name = "GetAllImpactWithMediumThreshold")]
+        public ActionResult<IEnumerable<ReadImpact>> GetAllMediumImpact(int trainingSessionId, int userId)
         {
 
             var user = _userRepo.GetUserById(userId);
