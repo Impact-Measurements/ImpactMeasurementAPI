@@ -32,7 +32,6 @@ namespace ImpactMeasurementAPI.Data
                 {
                     Console.WriteLine($"--> Could not run migrations: {e.Message}");
                 }
-
             }
 
             if (!context.TrainingSessions.Any())
