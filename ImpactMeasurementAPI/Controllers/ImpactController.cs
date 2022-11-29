@@ -133,14 +133,10 @@ namespace ImpactMeasurementAPI.Controllers
             return NotFound();
         }
         
-        
-        [HttpGet("impact/medium/with_threshold/{trainingSessionId}/{userId}", Name = "GetAllImpactWithMediumThreshold")]
-        public ActionResult<IEnumerable<ReadImpact>> GetAllMediumImpact(int trainingSessionId, int userId)
+        [HttpGet("impact/low/with_threshold/{trainingSessionId}", Name = "GetAllImpactWithLowThreshold")]
+        public ActionResult<IEnumerable<ReadImpact>> GetAllLowImpact(int trainingSessionId)
         {
-
-            var user = _userRepo.GetUserById(userId);
-            
-            var allImpact = _freeAccelerationRepository.GetAllImpactDataFromSession(trainingSessionId, user.MinimumImpactThreshold);
+            var allImpact = _freeAccelerationRepository.GetAllImpactDataFromImpactZone(trainingSessionId, "low");
 
             if (allImpact != null && allImpact.Count() != 0)
             {
@@ -149,6 +145,33 @@ namespace ImpactMeasurementAPI.Controllers
 
             return NotFound();
         }
+        
+        [HttpGet("impact/medium/with_threshold/{trainingSessionId}", Name = "GetAllImpactWithMediumThreshold")]
+        public ActionResult<IEnumerable<ReadImpact>> GetAllMediumImpact(int trainingSessionId)
+        {
+            var allImpact = _freeAccelerationRepository.GetAllImpactDataFromImpactZone(trainingSessionId, "medium");
+
+            if (allImpact != null && allImpact.Count() != 0)
+            {
+                return Ok(_mapper.Map<IEnumerable<ReadImpact>>(allImpact));
+            }
+
+            return NotFound();
+        }
+        
+        [HttpGet("impact/high/with_threshold/{trainingSessionId}", Name = "GetAllImpactWithHighThreshold")]
+        public ActionResult<IEnumerable<ReadImpact>> GetAllHighImpact(int trainingSessionId)
+        {
+            var allImpact = _freeAccelerationRepository.GetAllImpactDataFromImpactZone(trainingSessionId, "high");
+
+            if (allImpact != null && allImpact.Count() != 0)
+            {
+                return Ok(_mapper.Map<IEnumerable<ReadImpact>>(allImpact));
+            }
+
+            return NotFound();
+        }
+        
         
         [HttpGet("impact/highest/{trainingSessionId}", Name = "GetHighestImpact")]
         public ActionResult<double> GetHighestImpact(int trainingSessionId)
