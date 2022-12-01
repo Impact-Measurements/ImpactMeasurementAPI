@@ -20,7 +20,7 @@ namespace ImpactMeasurementAPI.Profiles
                 .ForMember(dest => dest.Frame,
                     opt => opt.MapFrom(src => src.Frame))
                 .ForMember(dest => dest.AccelerationX,
-                        opt => opt.MapFrom(src => src.AccelerationX))
+                    opt => opt.MapFrom(src => src.AccelerationX))
                 .ForMember(dest => dest.AccelerationY,
                     opt => opt.MapFrom(src => src.AccelerationY))
                 .ForMember(dest => dest.AccelerationZ,

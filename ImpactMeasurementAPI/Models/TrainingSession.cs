@@ -6,10 +6,7 @@ namespace ImpactMeasurementAPI.Models
 {
     public class TrainingSession
     {
-        
-        [Key]
-        [Required]
-        public int Id { get; set; }
+        [Key] [Required] public int Id { get; set; }
 
         public ICollection<MomentarilyAcceleration> FreeAcceleration { get; set; }
 

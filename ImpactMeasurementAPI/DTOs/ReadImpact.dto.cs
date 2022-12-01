@@ -1,6 +1,5 @@
 namespace ImpactMeasurementAPI.DTOs
 {
-    
     public class ReadImpact
     {
         public int Id { get; set; }
@@ -8,10 +7,9 @@ namespace ImpactMeasurementAPI.DTOs
         public double ImpactForce { get; set; }
 
         public double ImpactDirectionX { get; set; }
-        
+
         public double ImpactDirectionY { get; set; }
-        
+
         public double ImpactDirectionZ { get; set; }
     }
-    
 }

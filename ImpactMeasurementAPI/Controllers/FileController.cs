@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ImpactMeasurementAPI.Logic;
 using ImpactMeasurementAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 

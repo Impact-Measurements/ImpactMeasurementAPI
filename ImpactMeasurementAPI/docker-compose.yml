@@ -8,15 +8,15 @@ services:
       MYSQL_DATABASE: test
       MYSQL_USER: test
       MYSQL_PASSWORD: test
-#    ports:
-#      - "6033:3306"
+    #    ports:
+    #      - "6033:3306"
     expose:
       - "3306"
     volumes:
       - dbdata:/var/lib/mysql
       - ./_MySQL_Init_Script:/docker-entrypoint-initdb.d
     restart: always
-    
+  
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: pma
@@ -29,7 +29,7 @@ services:
     restart: always
     ports:
       - 8081:80
-    
+  
   impact_measurement_api:
     container_name: impact_measurement_api
     depends_on:

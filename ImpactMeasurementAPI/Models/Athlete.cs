@@ -2,13 +2,23 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ImpactMeasurementAPI.Models
 {
-    
     //TODO
     public class Athlete
     {
+        [Key] [Required] public int Id { get; set; }
         
-        [Key]
+        [Required] public string FirstName { get; set; }
+        [Required] public string LastName { get; set; }
+        
         [Required]
-        public int Id { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        [Compare("ConfirmPassword")]
+        public string Password { get; set; }
+
+        [Required]
+        public string ConfirmPassword { get; set; }
     }
 }

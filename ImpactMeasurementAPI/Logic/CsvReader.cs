@@ -7,7 +7,7 @@ using CsvHelper.Configuration;
 using ImpactMeasurementAPI.Models;
 using Microsoft.AspNetCore.Http;
 
-namespace ImpactMeasurementAPI.Controllers
+namespace ImpactMeasurementAPI.Logic
 {
     public class CsvController
     {

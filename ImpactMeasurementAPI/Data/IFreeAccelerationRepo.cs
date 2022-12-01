@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using ImpactMeasurementAPI.Models;
 
@@ -21,6 +20,5 @@ namespace ImpactMeasurementAPI.Data
         void CreateTrainingSession(TrainingSession trainingSession);
 
         void CreateMomentarilyAcceleration(MomentarilyAcceleration momentarilyAcceleration);
-
     }
 }

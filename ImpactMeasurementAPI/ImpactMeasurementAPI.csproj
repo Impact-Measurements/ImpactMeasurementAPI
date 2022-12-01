@@ -7,13 +7,18 @@
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
         <PackageReference Include="CsvHelper" Version="29.0.0" />
+        <PackageReference Include="Microsoft.AspNet.WebApi.Owin" Version="5.2.9" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.17" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
+        <PackageReference Include="Microsoft.Owin" Version="4.2.2" />
+        <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.2" />
         <PackageReference Include="MySql.Data" Version="8.0.30" />
         <PackageReference Include="MySql.Data.EntityFramework" Version="8.0.30" />
         <PackageReference Include="MySql.EntityFrameworkCore" Version="5.0.16" />
@@ -22,12 +27,18 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="TrainingFiles" />
+        <None Remove="TrainingFiles\training data.csv" />
+        <EmbeddedResource Include="TrainingFiles\training data.csv" />
+        <EmbeddedResource Remove="TrainingFiles\**" />
+        <None Remove="TrainingFiles\**" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="TrainingFiles\training data.csv" />
-      <EmbeddedResource Include="TrainingFiles\training data.csv" />
+      <Compile Remove="TrainingFiles\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="TrainingFiles\**" />
     </ItemGroup>
 
 </Project>
