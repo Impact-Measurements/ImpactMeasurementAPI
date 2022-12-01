@@ -4,13 +4,10 @@ using ImpactMeasurementAPI.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 
-
-namespace ImpactMeasurementAPI.Controllers
+namespace ImpactMeasurementAPI.Logic
 {
     public class DatabaseController
     {
-        public IConfiguration Configuration { get; }
-
         public MySqlConnection connection;
 
         //Constructor
@@ -19,10 +16,13 @@ namespace ImpactMeasurementAPI.Controllers
             Initialize();
         }
 
+        public IConfiguration Configuration { get; }
+
         //Initialize values
         private void Initialize()
         {
-            var connectionString = "server=db;userid=root;password=my_secret_password;database=test;persistsecurityinfo=True;";
+            var connectionString =
+                "server=db;userid=root;password=my_secret_password;database=test;persistsecurityinfo=True;";
             connection = new MySqlConnection(connectionString);
         }
 
@@ -66,7 +66,6 @@ namespace ImpactMeasurementAPI.Controllers
             }
             catch (MySqlException ex)
             {
-
                 Console.WriteLine(ex.Message);
                 return false;
             }
@@ -85,31 +84,28 @@ namespace ImpactMeasurementAPI.Controllers
             if (trainingSessionID != 0)
                 //add each packet for that sessions
                 foreach (var record in records)
-                {
                     InsertFrame(record, trainingSessionID);
-                }
-
         }
 
         //Insert a new training moment
         public long InsertTraining()
         {
-            string query = $@"INSERT INTO test.TrainingSession (StartingTime) VALUES({DateTime.Now})";
+            var query = $@"INSERT INTO test.TrainingSession (StartingTime) VALUES({DateTime.Now})";
 
             //open connection
-            if (OpenConnection() == true)
+            if (OpenConnection())
             {
                 //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = connection.CreateCommand();
+                var cmd = connection.CreateCommand();
                 cmd.CommandText = "INSERT INTO test.TrainingSessions (StartingTime) VALUES (@1)";
                 cmd.Parameters.AddWithValue("@1", DateTime.Now);
                 //Execute command
                 cmd.ExecuteNonQuery();
-            
-                long trainingId = cmd.LastInsertedId;
+
+                var trainingId = cmd.LastInsertedId;
                 //close connection
                 CloseConnection();
-            
+
                 return trainingId;
             }
 
@@ -118,15 +114,16 @@ namespace ImpactMeasurementAPI.Controllers
 
 
         //Insert a single frame / packetcount
-        public  void InsertFrame(CsvData record, long trainingId)
+        public void InsertFrame(CsvData record, long trainingId)
         {
-            string query = $@"INSERT INTO test.MomentarilyAccelerations(TrainingSessionId, Frame, AccelerationX, AccelerationY, AccelerationZ) VALUES({trainingId}, {record.packetCounter}, {record.FreeAcc_X}, {record.FreeAcc_Y}, {record.FreeAcc_Z})";
+            var query =
+                $@"INSERT INTO test.MomentarilyAccelerations(TrainingSessionId, Frame, AccelerationX, AccelerationY, AccelerationZ) VALUES({trainingId}, {record.packetCounter}, {record.FreeAcc_X}, {record.FreeAcc_Y}, {record.FreeAcc_Z})";
 
             //open connection
-            if (OpenConnection() == true)
+            if (OpenConnection())
             {
                 //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(query, connection);
+                var cmd = new MySqlCommand(query, connection);
 
                 //Execute command
                 cmd.ExecuteNonQuery();
