@@ -232,7 +232,7 @@ namespace ImpactMeasurementAPI.Controllers
             return readImpact;
         }
 
-        [HttpGet("training/all/{userId}", Name = "GetAllTrainingSessions")]
+        [HttpGet("training/all/{userId}", Name = "GetAllTrainingSessionsWithUserId")]
         public ActionResult<IEnumerable<ReadTrainingSession>> GetTrainingSessionsWithUserId(int userId)
         {
             var userItem = _freeAccelerationRepository.GetAllTrainingSessions(userId);
