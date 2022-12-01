@@ -41,7 +41,7 @@ namespace ImpactMeasurementAPI.Data
                 context.Users.AddRange(
                     new User(){Mass = 78, Name = "Yorgo"}, new User(){Mass = 80, Name = "Jenson"});
                 
-                context.TrainingSessions.AddRange(new TrainingSession(){PainfulnessScore = 7, EffectivenessScore = 6, StartingTime = new DateTime()});
+                context.TrainingSessions.AddRange(new TrainingSession(){PainfulnessScore = 7, EffectivenessScore = 6, StartingTime = new DateTime(2022, 12,01)});
                 
                 context.MomentarilyAccelerations.AddRange(
                     new MomentarilyAcceleration(){AccelerationX = -0.012595,AccelerationY = -0.006085,AccelerationZ = 0.058178,Frame = 1,TrainingSessionId = 1},
