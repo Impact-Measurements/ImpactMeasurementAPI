@@ -11,6 +11,7 @@ namespace ImpactMeasurementAPI.Models
         [Required]
         public int Id { get; set; }
 
+        public int userId { get; set; }
         public ICollection<MomentarilyAcceleration> FreeAcceleration { get; set; }
 
         public DateTime StartingTime { get; set; }

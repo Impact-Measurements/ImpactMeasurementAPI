@@ -232,6 +232,20 @@ namespace ImpactMeasurementAPI.Controllers
             return readImpact;
         }
 
+        [HttpGet("training/all/{userId}", Name = "GetAllTrainingSessions")]
+        public ActionResult<IEnumerable<ReadTrainingSession>> GetTrainingSessionsWithUserId(int userId)
+        {
+            var userItem = _freeAccelerationRepository.GetAllTrainingSessions(userId);
+            return Ok(_mapper.Map<IEnumerable<ReadTrainingSession>>(userItem));
+        }
+        
+        [HttpGet("training/all", Name = "GetAllTrainingSessions")]
+        public ActionResult<IEnumerable<ReadTrainingSession>> GetTrainingSessions()
+        {
+            var userItem = _freeAccelerationRepository.GetAllTrainingSessions();
+            return Ok(_mapper.Map<IEnumerable<ReadTrainingSession>>(userItem));
+        }
+
         private bool TrainingSessionExists(int id)
         {
             if (_freeAccelerationRepository.GetTrainingSession(id) != null)

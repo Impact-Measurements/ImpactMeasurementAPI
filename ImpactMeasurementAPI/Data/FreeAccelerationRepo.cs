@@ -102,6 +102,16 @@ namespace ImpactMeasurementAPI.Data
             return _context.TrainingSessions.FirstOrDefault(t => t.Id == id);
         }
 
+        public IEnumerable<TrainingSession> GetAllTrainingSessions(int userId)
+        {
+            return _context.TrainingSessions.Where(i => i.userId == userId).ToList();
+        }
+
+        public IEnumerable<TrainingSession> GetAllTrainingSessions()
+        {
+            return _context.TrainingSessions.ToList();
+        }
+
         public void CreateTrainingSession(TrainingSession trainingSession)
         {
             if (trainingSession == null)
