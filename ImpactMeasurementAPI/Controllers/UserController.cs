@@ -19,15 +19,6 @@ namespace ImpactMeasurementAPI.Controllers
             _mapper = mapper;
         }
         
-        [HttpPut("user/minimum/threshold", Name = "UpdateMinimumImpactThreshold")]
-        public ActionResult<ReadUser> UpdateMinimumImpactThreshold(UpdateMinimumImpactThreshold minimumImpactThreshold)
-        {
-            User user = _repository.GetUserById(minimumImpactThreshold.userId);
-            user.MinimumImpactThreshold = minimumImpactThreshold.ImpactForce;
-            _repository.SaveChanges();
-            return _mapper.Map<ReadUser>(user);
-        }
-        
         [HttpPost("user/create", Name = "CreateUser")]
         public ActionResult<ReadUser> CreateUser(CreateUser createUser)
         {
@@ -38,6 +29,15 @@ namespace ImpactMeasurementAPI.Controllers
             var userReadDto = _mapper.Map<ReadUser>(userModel);
 
             return userReadDto;
+        }
+        
+        [HttpPut("user/minimum/threshold", Name = "UpdateMinimumImpactThreshold")]
+        public ActionResult<ReadUser> UpdateMinimumImpactThreshold(UpdateMinimumImpactThreshold minimumImpactThreshold)
+        {
+            User user = _repository.GetUserById(minimumImpactThreshold.userId);
+            user.MinimumImpactThreshold = minimumImpactThreshold.ImpactForce;
+            _repository.SaveChanges();
+            return _mapper.Map<ReadUser>(user);
         }
 
     }
