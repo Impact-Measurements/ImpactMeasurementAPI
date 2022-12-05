@@ -104,7 +104,7 @@ namespace ImpactMeasurementAPI.Data
 
         public IEnumerable<TrainingSession> GetAllTrainingSessions(int userId)
         {
-            return _context.TrainingSessions.Where(i => i.userId == userId).ToList();
+            return _context.TrainingSessions.Where(i => i.UserId == userId).ToList();
         }
 
         public IEnumerable<TrainingSession> GetAllTrainingSessions()

@@ -39,9 +39,9 @@ namespace ImpactMeasurementAPI.Data
                 Console.WriteLine("--> seeding data");
                 
                 context.Users.AddRange(
-                    new User(){Mass = 78, Name = "Yorgo"}, new User(){Mass = 80, Name = "Jenson"});
+                    new User(){Mass = 78, Name = "Yorgo", Id = 2}, new User(){Mass = 80, Name = "Jenson"});
                 
-                context.TrainingSessions.AddRange(new TrainingSession(){PainfulnessScore = 7, EffectivenessScore = 6, StartingTime = new DateTime(2022, 12,01)});
+                context.TrainingSessions.AddRange(new TrainingSession(){UserId = 1, PainfulnessScore = 7, EffectivenessScore = 6, StartingTime = new DateTime(2022, 12,01)});
                 
                 context.MomentarilyAccelerations.AddRange(
                     new MomentarilyAcceleration(){AccelerationX = -0.012595,AccelerationY = -0.006085,AccelerationZ = 0.058178,Frame = 1,TrainingSessionId = 1},

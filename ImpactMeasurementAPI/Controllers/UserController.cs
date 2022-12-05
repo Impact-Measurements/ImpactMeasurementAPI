@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using ImpactMeasurementAPI.Data;
@@ -19,7 +20,17 @@ namespace ImpactMeasurementAPI.Controllers
             _mapper = mapper;
         }
         
-        [HttpPost("user/create", Name = "CreateUser")]
+        [HttpGet("users/all", Name = "GetUsers")]
+        public IEnumerable<ReadUser> GetAllUsers()
+        {
+
+            var userModel = _repository.GetAllUsers();
+            var users = _mapper.Map<IEnumerable<ReadUser>>(userModel);
+
+            return users;
+        }
+        
+        [HttpPost("users/create", Name = "CreateUser")]
         public ActionResult<ReadUser> CreateUser(CreateUser createUser)
         {
             var userModel = _mapper.Map<User>(createUser);
@@ -31,7 +42,7 @@ namespace ImpactMeasurementAPI.Controllers
             return userReadDto;
         }
         
-        [HttpPut("user/minimum/threshold", Name = "UpdateMinimumImpactThreshold")]
+        [HttpPut("users/minimum/threshold", Name = "UpdateMinimumImpactThreshold")]
         public ActionResult<ReadUser> UpdateMinimumImpactThreshold(UpdateMinimumImpactThreshold minimumImpactThreshold)
         {
             User user = _repository.GetUserById(minimumImpactThreshold.userId);
