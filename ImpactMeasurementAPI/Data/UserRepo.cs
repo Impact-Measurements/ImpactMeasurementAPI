@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using ImpactMeasurementAPI.Models;
 
@@ -35,6 +36,11 @@ namespace ImpactMeasurementAPI.Data
         public void UpdateUser(User user)
         {
             throw new System.NotImplementedException();
+        }
+
+        public IEnumerable<User> GetAllUsers()
+        {
+            return _context.Users.ToList();
         }
     }
 }

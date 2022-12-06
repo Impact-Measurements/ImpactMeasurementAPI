@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using ImpactMeasurementAPI.Data;
@@ -19,16 +20,17 @@ namespace ImpactMeasurementAPI.Controllers
             _mapper = mapper;
         }
         
-        [HttpPut("user/minimum/threshold", Name = "UpdateMinimumImpactThreshold")]
-        public ActionResult<ReadUser> UpdateMinimumImpactThreshold(UpdateMinimumImpactThreshold minimumImpactThreshold)
+        [HttpGet("users/all", Name = "GetUsers")]
+        public IEnumerable<ReadUser> GetAllUsers()
         {
-            User user = _repository.GetUserById(minimumImpactThreshold.userId);
-            user.MinimumImpactThreshold = minimumImpactThreshold.ImpactForce;
-            _repository.SaveChanges();
-            return _mapper.Map<ReadUser>(user);
+
+            var userModel = _repository.GetAllUsers();
+            var users = _mapper.Map<IEnumerable<ReadUser>>(userModel);
+
+            return users;
         }
         
-        [HttpPost("user/create", Name = "CreateUser")]
+        [HttpPost("users/create", Name = "CreateUser")]
         public ActionResult<ReadUser> CreateUser(CreateUser createUser)
         {
             var userModel = _mapper.Map<User>(createUser);
@@ -38,6 +40,15 @@ namespace ImpactMeasurementAPI.Controllers
             var userReadDto = _mapper.Map<ReadUser>(userModel);
 
             return userReadDto;
+        }
+        
+        [HttpPut("users/minimum/threshold", Name = "UpdateMinimumImpactThreshold")]
+        public ActionResult<ReadUser> UpdateMinimumImpactThreshold(UpdateMinimumImpactThreshold minimumImpactThreshold)
+        {
+            User user = _repository.GetUserById(minimumImpactThreshold.userId);
+            user.MinimumImpactThreshold = minimumImpactThreshold.ImpactForce;
+            _repository.SaveChanges();
+            return _mapper.Map<ReadUser>(user);
         }
 
     }

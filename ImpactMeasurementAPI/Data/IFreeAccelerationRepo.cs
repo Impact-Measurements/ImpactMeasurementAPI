@@ -20,6 +20,9 @@ namespace ImpactMeasurementAPI.Data
 
         TrainingSession GetTrainingSession(int id);
 
+        IEnumerable<TrainingSession> GetAllTrainingSessions(int userId);
+        IEnumerable<TrainingSession> GetAllTrainingSessions();
+
         void CreateTrainingSession(TrainingSession trainingSession);
 
         void CreateMomentarilyAcceleration(MomentarilyAcceleration momentarilyAcceleration);

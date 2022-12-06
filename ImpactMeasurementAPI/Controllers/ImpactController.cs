@@ -32,23 +32,76 @@ namespace ImpactMeasurementAPI.Controllers
             _userRepo = userRepo;
             _mapper = mapper;
         }
+        
+                
+        [HttpPost("trainingsession/create", Name = "CreateTrainingSession")]
+        public ActionResult<ReadTrainingSession> CreateTrainingSession(CreateTrainingSession createTrainingSession)
+        {
+            TrainingSession trainingSession = new TrainingSession();
+            trainingSession = _mapper.Map<TrainingSession>(createTrainingSession);
+            _freeAccelerationRepository.CreateTrainingSession(trainingSession);
+            _freeAccelerationRepository.SaveChanges();
+            Console.WriteLine(JsonSerializer.Serialize(trainingSession));
+            return _mapper.Map<ReadTrainingSession>(trainingSession);
+        }
 
+        
+        [HttpPut("trainingsession/update", Name = "UpdateTrainingSession")]
+        public ActionResult<ReadTrainingSession> UpdateTrainingSession(UpdateTrainingSession updateTrainingSession)
+        {
+            TrainingSession trainingSession = _freeAccelerationRepository.GetTrainingSession(updateTrainingSession.Id);
+            trainingSession.EffectivenessScore = updateTrainingSession.EffectivenessScore;
+            trainingSession.PainfulnessScore = updateTrainingSession.PainfulnessScore;
+            _freeAccelerationRepository.SaveChanges();
+            return _mapper.Map<ReadTrainingSession>(trainingSession);
+        }
+        
         [HttpGet("trainingsession/{trainingSessionId}", Name = "GetTrainingSession")]
         public ActionResult<TrainingSession> GetTrainingSession(int trainingSessionId)
         {
             var trainingSession = _freeAccelerationRepository.GetTrainingSession(trainingSessionId);
+            if (trainingSession == null)
+            {
+                return NotFound();
+            }
 
             var readTraining = _mapper.Map<ReadTrainingSession>(trainingSession);
             readTraining.Impacts =
                 _mapper.Map<IEnumerable<ReadImpact>>(_freeAccelerationRepository.GetAllImpactDataFromSession(trainingSessionId));
+
+            readTraining.StartingTime = trainingSession.StartingTime.ToString("d");
             
-            if (trainingSession != null)
-            {
-                return Ok(readTraining);
-            }
-            
-            return NotFound();
+            return Ok(readTraining);
+
         }
+        
+        [HttpGet("trainingsession/all/{userId}", Name = "GetAllTrainingSessionsWithUserId")]
+        public ActionResult<IEnumerable<ReadTrainingSession>> GetTrainingSessionsWithUserId(int userId)
+        {
+            var userItem = _freeAccelerationRepository.GetAllTrainingSessions(userId).ToList();
+            var readTrainingSession = _mapper.Map<IEnumerable<ReadTrainingSession>>(userItem).ToList();
+
+            for (int i = 0; i < userItem.Count; i++)
+            {
+                readTrainingSession[i].StartingTime = userItem[i].StartingTime.ToString("d");
+            }
+            return Ok(readTrainingSession);
+        }
+        
+       
+        [HttpGet("trainingsession/all", Name = "GetAllTrainingSessions")]
+        public ActionResult<IEnumerable<ReadTrainingSession>> GetTrainingSessions()
+        {
+            var userItem = _freeAccelerationRepository.GetAllTrainingSessions().ToList();
+            var readTrainingSession = _mapper.Map<IEnumerable<ReadTrainingSession>>(userItem).ToList();
+
+            for (int i = 0; i < userItem.Count; i++)
+            {
+                readTrainingSession[i].StartingTime = userItem[i].StartingTime.ToString("d");
+            }
+            return Ok(readTrainingSession);
+        }
+        
         
         // //TODO change to post once csv upload works
         // [HttpGet("trainingsession/save", Name = "SaveTrainingSession")]
@@ -78,18 +131,6 @@ namespace ImpactMeasurementAPI.Controllers
         //     
         // }
 
-        [HttpGet("acceleration/all/{trainingSessionId}", Name = "GetAllFreeAcceleration")]
-        public ActionResult<IEnumerable<ReadFreeAcceleration>> GetFreeAcceleration(int trainingSessionId)
-        {
-            var freeAcceleration = _freeAccelerationRepository.GetAllFreeAccelerationValuesFromSession(trainingSessionId);
-
-            if (freeAcceleration != null && freeAcceleration.Count() != 0)
-            {
-                return Ok(_mapper.Map<IEnumerable<ReadFreeAcceleration>>(freeAcceleration));
-            }
-
-            return NotFound();
-        }
         
         [HttpGet("impact/average/{trainingSessionId}", Name = "GetAverageImpact")]
         public ActionResult<double> GetAverageImpact(int trainingSessionId)
@@ -117,11 +158,16 @@ namespace ImpactMeasurementAPI.Controllers
             return NotFound();
         }
         
-        [HttpGet("impact/all/with_threshold/{trainingSessionId}/{userId}", Name = "GetAllImpactWithThreshold")]
-        public ActionResult<IEnumerable<ReadImpact>> GetAllImpact(int trainingSessionId, int userId)
+        [HttpGet("impact/all/with_threshold/{trainingSessionId}", Name = "GetAllImpactWithThreshold")]
+        public ActionResult<IEnumerable<ReadImpact>> GetAllImpactWithThreshold(int trainingSessionId)
         {
 
-            var user = _userRepo.GetUserById(userId);
+            var trainingsession = _freeAccelerationRepository.GetTrainingSession(trainingSessionId);
+            if (trainingsession.UserId == 0)
+            {
+                return NotFound();
+            }
+            var user = _userRepo.GetUserById(trainingsession.UserId);
             
             var allImpact = _freeAccelerationRepository.GetAllImpactDataFromSession(trainingSessionId, user.MinimumImpactThreshold);
 
@@ -187,27 +233,6 @@ namespace ImpactMeasurementAPI.Controllers
 
         }
 
-        [HttpPost("training/create", Name = "CreateTrainingSession")]
-        public ActionResult<ReadTrainingSession> CreateTrainingSession(CreateTrainingSession createTrainingSession)
-        {
-            TrainingSession trainingSession = new TrainingSession();
-            trainingSession = _mapper.Map<TrainingSession>(createTrainingSession);
-            _freeAccelerationRepository.CreateTrainingSession(trainingSession);
-            _freeAccelerationRepository.SaveChanges();
-            Console.WriteLine(JsonSerializer.Serialize(trainingSession));
-            return _mapper.Map<ReadTrainingSession>(trainingSession);
-        }
-
-        [HttpPut("training/update", Name = "UpdateTrainingSession")]
-        public ActionResult<ReadTrainingSession> CreateTrainingSession(UpdateTrainingSession updateTrainingSession)
-        {
-            TrainingSession trainingSession = _freeAccelerationRepository.GetTrainingSession(updateTrainingSession.Id);
-            trainingSession.EffectivenessScore = updateTrainingSession.EffectivenessScore;
-            trainingSession.PainfulnessScore = updateTrainingSession.PainfulnessScore;
-            _freeAccelerationRepository.SaveChanges();
-            return _mapper.Map<ReadTrainingSession>(trainingSession);
-        }
-        
         [HttpPost("acceleration/create", Name = "CreateFreeAcceleration")]
         public ActionResult<ReadImpact> CreateFreeAcceleration(List<CreateMomentarilyAcceleration> createMomentarilyAccelerations)
         {
@@ -231,6 +256,20 @@ namespace ImpactMeasurementAPI.Controllers
             var readImpact = _mapper.Map<ReadImpact>(highestImpact);
             return readImpact;
         }
+        
+        [HttpGet("acceleration/all/{trainingSessionId}", Name = "GetAllFreeAcceleration")]
+        public ActionResult<IEnumerable<ReadFreeAcceleration>> GetFreeAcceleration(int trainingSessionId)
+        {
+            var freeAcceleration = _freeAccelerationRepository.GetAllFreeAccelerationValuesFromSession(trainingSessionId);
+
+            if (freeAcceleration != null && freeAcceleration.Count() != 0)
+            {
+                return Ok(_mapper.Map<IEnumerable<ReadFreeAcceleration>>(freeAcceleration));
+            }
+
+            return NotFound();
+        }
+
 
         private bool TrainingSessionExists(int id)
         {

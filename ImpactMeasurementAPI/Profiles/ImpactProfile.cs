@@ -8,7 +8,7 @@ namespace ImpactMeasurementAPI.Profiles
     {
         public ImpactProfile()
         {
-            //source -> target
+            
 
             CreateMap<CreateUser, User>();
             CreateMap<User, ReadUser>();
