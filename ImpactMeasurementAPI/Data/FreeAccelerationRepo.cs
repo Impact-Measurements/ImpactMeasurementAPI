@@ -31,7 +31,9 @@ namespace ImpactMeasurementAPI.Data
 
         public Impact GetHighestForceOfImpactFromSession(int id)
         {
-            return GetAllImpactDataFromSession(id).FirstOrDefault();
+            return GetAllImpactDataFromSession(id)
+                .OrderBy(i => i.ImpactForce)
+                .FirstOrDefault();
         }
 
         public IEnumerable<Impact> GetAllImpactDataFromSession(int id)
@@ -46,6 +48,41 @@ namespace ImpactMeasurementAPI.Data
 
             CalculateImpact calculateImpact = new CalculateImpact(momentarilyAccelerations.ToList(), 75);
             return calculateImpact.CalculateAllImpacts();
+        }
+
+        public IEnumerable<Impact> GetAllImpactDataFromSession(int id, double minimumThreshold)
+        {
+            TrainingSession trainingSession = GetTrainingSession(id);
+            if (trainingSession == null)
+            {
+                throw new ArgumentNullException(nameof(trainingSession));
+            }
+            
+            var momentarilyAccelerations = GetAllFreeAccelerationValuesFromSession(id);
+
+            CalculateImpact calculateImpact = new CalculateImpact(momentarilyAccelerations.ToList(), 75, minimumThreshold);
+            return calculateImpact.CalculateAllImpacts();
+        }
+        
+        public IEnumerable<Impact> GetAllImpactDataFromImpactZone(int id, string zone)
+        {
+            var trainingSession = GetTrainingSession(id);
+            if (trainingSession == null)
+            {
+                throw new ArgumentNullException(nameof(trainingSession));
+            }
+            
+            var momentarilyAccelerations = GetAllFreeAccelerationValuesFromSession(id);
+
+            var calculateImpact = new CalculateImpact(momentarilyAccelerations.ToList(), 75);
+
+            return zone switch
+            {
+                "low" => calculateImpact.CalculateAllImpacts().Where(d => d.Color == Color.GREEN),
+                "medium" => calculateImpact.CalculateAllImpacts().Where(d => d.Color == Color.YELLOW),
+                "high" => calculateImpact.CalculateAllImpacts().Where(d => d.Color == Color.RED),
+                _ => calculateImpact.CalculateAllImpacts()
+            };
         }
 
         public double GetAverageForceOfImpactFromSession(int id)
@@ -63,6 +100,16 @@ namespace ImpactMeasurementAPI.Data
         public TrainingSession GetTrainingSession(int id)
         {
             return _context.TrainingSessions.FirstOrDefault(t => t.Id == id);
+        }
+
+        public IEnumerable<TrainingSession> GetAllTrainingSessions(int userId)
+        {
+            return _context.TrainingSessions.Where(i => i.UserId == userId).ToList();
+        }
+
+        public IEnumerable<TrainingSession> GetAllTrainingSessions()
+        {
+            return _context.TrainingSessions.ToList();
         }
 
         public void CreateTrainingSession(TrainingSession trainingSession)

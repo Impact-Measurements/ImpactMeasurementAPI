@@ -15,7 +15,9 @@ namespace ImpactMeasurementAPI.Data
         public DbSet<Coach> Coaches { get; set; }
         public DbSet<Sport> Sports { get; set; }
         public DbSet<Athlete> Athletes { get; set; }
-        
+        public DbSet<Impact> Impacts { get; set; }
+        public DbSet<User> Users { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +31,18 @@ namespace ImpactMeasurementAPI.Data
                 .Entity<MomentarilyAcceleration>()
                 .HasOne(m => m.TrainingSession)
                 .WithMany(t => t.FreeAcceleration)
+                .HasForeignKey(m => m.TrainingSessionId);
+
+            modelBuilder
+                .Entity<TrainingSession>()
+                .HasMany(t => t.Impacts)
+                .WithOne(m => m.TrainingSession!)
+                .HasForeignKey(t => t.Id);
+
+            modelBuilder
+                .Entity<Impact>()
+                .HasOne(m => m.TrainingSession)
+                .WithMany(t => t.Impacts)
                 .HasForeignKey(m => m.TrainingSessionId);
         }
 
