@@ -14,9 +14,9 @@ namespace ImpactMeasurementAPI.Data
         public DbSet<MomentarilyAcceleration> MomentarilyAccelerations { get; set; }
         public DbSet<Coach> Coaches { get; set; }
         public DbSet<Sport> Sports { get; set; }
-        public DbSet<Athlete> Athletes { get; set; }
+        public DbSet<AthleteOld> AthletesOld { get; set; }
         public DbSet<Impact> Impacts { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Athlete> Athletes { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

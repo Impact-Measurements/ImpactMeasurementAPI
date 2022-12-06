@@ -10,8 +10,8 @@ namespace ImpactMeasurementAPI.Profiles
         {
             
 
-            CreateMap<CreateUser, User>();
-            CreateMap<User, ReadUser>();
+            CreateMap<CreateAthlete, Athlete>();
+            CreateMap<Athlete, ReadAthlete>();
             CreateMap<CreateTrainingSession, TrainingSession>()
                 .ForMember(dest => dest.StartingTime,
                     opt => opt.MapFrom(src => src.StartingTime))
