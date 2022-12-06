@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using ImpactMeasurementAPI.DTOs;
 using ImpactMeasurementAPI.Logic;
 using ImpactMeasurementAPI.Models;
 using ImpactMeasurementAPI.Repositories;

@@ -1,3 +1,4 @@
+using ImpactMeasurementAPI.DTOs;
 using ImpactMeasurementAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;

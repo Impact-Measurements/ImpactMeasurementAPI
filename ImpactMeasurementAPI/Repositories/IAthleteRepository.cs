@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using ImpactMeasurementAPI.Models;
+using ImpactMeasurementAPI.DTOs;
 
 namespace ImpactMeasurementAPI.Repositories
 {
