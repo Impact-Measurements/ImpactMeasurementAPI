@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ImpactMeasurementAPI.Data;
@@ -44,6 +45,7 @@ namespace ImpactMeasurementAPI
 
             services.AddControllers();
             services.AddScoped<IFreeAccelerationRepo, FreeAccelerationRepo>();
+            services.AddScoped<IUserRepo, UserRepo>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ImpactMeasurementAPI", Version = "v1" });
@@ -64,7 +66,13 @@ namespace ImpactMeasurementAPI
             services.AddDbContext<AppDbContext>(opt =>
                 // opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
                 opt.UseMySQL(connectionString));
-
+}
+            else
+            {
+                Console.WriteLine("--> Using InMemory Db");
+                services.AddDbContext<AppDbContext>(opt =>
+                    opt.UseInMemoryDatabase("InMemory"));
+            }
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -105,6 +113,9 @@ namespace ImpactMeasurementAPI
             }
 
             app.UseHttpsRedirection();
+            
+
+            app.UseRouting();
             app.UseCors("CorsPolicy");
 
             app.UseRouting();

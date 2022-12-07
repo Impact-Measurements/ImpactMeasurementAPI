@@ -8,14 +8,29 @@ namespace ImpactMeasurementAPI.Profiles
     {
         public ImpactProfile()
         {
-            //source -> target
+            
 
+            CreateMap<CreateUser, User>();
+            CreateMap<User, ReadUser>();
             CreateMap<CreateTrainingSession, TrainingSession>()
                 .ForMember(dest => dest.StartingTime,
-                    opt => opt.MapFrom(src => src.StartingTime));
+                    opt => opt.MapFrom(src => src.StartingTime))
+                .ForMember(dest => dest.EffectivenessScore,
+                    opt => opt.MapFrom(src => src.EffectivenessScore))
+                .ForMember(dest => dest.PainfulnessScore,
+                    opt => opt.MapFrom(src => src.PainfulnessScore));
             CreateMap<TrainingSession, ReadTrainingSession>()
                 .ForMember(dest => dest.StartingTime,
-                    opt => opt.MapFrom(src => src.StartingTime));
+                    opt => opt.MapFrom(src => src.StartingTime))
+                .ForMember(dest => dest.EffectivenessScore,
+                    opt => opt.MapFrom(src => src.EffectivenessScore))
+                .ForMember(dest => dest.PainfulnessScore,
+                    opt => opt.MapFrom(src => src.PainfulnessScore));
+            CreateMap<UpdateTrainingSession, TrainingSession>()
+                .ForMember(dest => dest.EffectivenessScore,
+                    opt => opt.MapFrom(src => src.EffectivenessScore))
+                .ForMember(dest => dest.PainfulnessScore,
+                    opt => opt.MapFrom(src => src.PainfulnessScore));
             CreateMap<CreateMomentarilyAcceleration, MomentarilyAcceleration>()
                 .ForMember(dest => dest.Frame,
                     opt => opt.MapFrom(src => src.Frame))
@@ -32,6 +47,8 @@ namespace ImpactMeasurementAPI.Profiles
                     opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ImpactForce,
                     opt => opt.MapFrom(src => src.ImpactForce))
+                .ForMember(dest => dest.Frame,
+                    opt => opt.MapFrom(src => src.Frame))
                 .ForMember(dest => dest.ImpactDirectionX,
                     opt => opt.MapFrom(src => src.ImpactDirectionX))
                 .ForMember(dest => dest.ImpactDirectionY,

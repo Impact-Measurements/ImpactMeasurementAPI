@@ -9,6 +9,7 @@ namespace ImpactMeasurementAPI.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> opt) : base(opt)
         {
+            
         }
 
 
@@ -31,6 +32,18 @@ namespace ImpactMeasurementAPI.Data
                 .HasForeignKey(m => m.TrainingSessionId);
             
             
+
+            modelBuilder
+                .Entity<TrainingSession>()
+                .HasMany(t => t.Impacts)
+                .WithOne(m => m.TrainingSession!)
+                .HasForeignKey(t => t.Id);
+
+            modelBuilder
+                .Entity<Impact>()
+                .HasOne(m => m.TrainingSession)
+                .WithMany(t => t.Impacts)
+                .HasForeignKey(m => m.TrainingSessionId);
         }
         
         public DbSet<TrainingSession> TrainingSessions { get; set; }

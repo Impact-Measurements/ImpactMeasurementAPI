@@ -1,10 +1,8 @@
-using System;
-
 namespace ImpactMeasurementAPI.DTOs
 {
-    public class CreateTrainingSession
+    public class UpdateTrainingSession
     {
-        public DateTime StartingTime { get; set; }
+        public int Id { get; set; }
         
         public int EffectivenessScore { get; set; }
         
