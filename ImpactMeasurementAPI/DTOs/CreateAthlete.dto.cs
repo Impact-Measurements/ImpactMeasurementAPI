@@ -1,6 +1,6 @@
 namespace ImpactMeasurementAPI.DTOs
 {
-    public class CreateUser
+    public class CreateAthlete
     {
         public string Name { get; set; }
         

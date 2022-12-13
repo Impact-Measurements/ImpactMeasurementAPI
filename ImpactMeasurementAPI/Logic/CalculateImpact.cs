@@ -30,7 +30,7 @@ namespace ImpactMeasurementAPI.Logic
             _minimumImpactThreshold = minimumImpactThreshold;
         }
 
-        public CalculateImpact(List<MomentarilyAcceleration> momentarilyAccelerations, User user)
+        public CalculateImpact(List<MomentarilyAcceleration> momentarilyAccelerations, Athlete user)
         {
             _momentarilyAccelerations = momentarilyAccelerations;
             _mass = user.Mass;

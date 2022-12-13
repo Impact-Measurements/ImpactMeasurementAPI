@@ -39,7 +39,7 @@ namespace ImpactMeasurementAPI.Data
                 Console.WriteLine("--> seeding data");
                 
                 context.Users.AddRange(
-                    new User(){Mass = 78, Name = "Yorgo", Id = 2}, new User(){Mass = 80, Name = "Jenson"});
+                    new Athlete(){Mass = 78, Name = "Yorgo", Id = 2}, new Athlete(){Mass = 80, Name = "Jenson"});
                 
                 context.TrainingSessions.AddRange(new TrainingSession(){UserId = 1, PainfulnessScore = 7, EffectivenessScore = 6, StartingTime = new DateTime(2022, 12,01)});
                 
