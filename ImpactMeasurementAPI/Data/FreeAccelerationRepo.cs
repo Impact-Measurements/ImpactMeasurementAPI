@@ -32,7 +32,7 @@ namespace ImpactMeasurementAPI.Data
         public Impact GetHighestForceOfImpactFromSession(int id)
         {
             return GetAllImpactDataFromSession(id)
-                .OrderBy(i => i.ImpactForce)
+                .OrderByDescending(i => i.ImpactForce)
                 .FirstOrDefault();
         }
 
