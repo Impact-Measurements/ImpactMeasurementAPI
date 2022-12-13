@@ -159,7 +159,7 @@ namespace ImpactMeasurementAPI.Controllers
         }
         
         [HttpGet("impact/all/with_threshold/{trainingSessionId}", Name = "GetAllImpactWithThreshold")]
-        public ActionResult<IEnumerable<ReadImpact>> GetAllImpactWithThreshold(int trainingSessionId)
+        public ActionResult<ReadTrainingSession> GetAllImpactWithThreshold(int trainingSessionId)
         {
 
             var trainingsession = _freeAccelerationRepository.GetTrainingSession(trainingSessionId);
@@ -168,12 +168,15 @@ namespace ImpactMeasurementAPI.Controllers
                 return NotFound();
             }
             var user = _userRepo.GetUserById(trainingsession.UserId);
+            var readTrainingSession = _mapper.Map<ReadTrainingSession>(trainingsession);
             
             var allImpact = _freeAccelerationRepository.GetAllImpactDataFromSession(trainingSessionId, user.MinimumImpactThreshold);
 
+            readTrainingSession.Impacts = _mapper.Map<IEnumerable<ReadImpact>>(allImpact);
+
             if (allImpact != null && allImpact.Count() != 0)
             {
-                return Ok(_mapper.Map<IEnumerable<ReadImpact>>(allImpact));
+                return Ok(readTrainingSession);
             }
 
             return NotFound();
@@ -182,11 +185,18 @@ namespace ImpactMeasurementAPI.Controllers
         [HttpGet("impact/low/with_threshold/{trainingSessionId}", Name = "GetAllImpactWithLowThreshold")]
         public ActionResult<IEnumerable<ReadImpact>> GetAllLowImpact(int trainingSessionId)
         {
+            var trainingsession = _freeAccelerationRepository.GetTrainingSession(trainingSessionId);
+            if (trainingsession.UserId == 0)
+            {
+                return NotFound();
+            }
+            var readTrainingSession = _mapper.Map<ReadTrainingSession>(trainingsession);
+            
             var allImpact = _freeAccelerationRepository.GetAllImpactDataFromImpactZone(trainingSessionId, "low");
-
+            readTrainingSession.Impacts = _mapper.Map<IEnumerable<ReadImpact>>(allImpact);
             if (allImpact != null && allImpact.Count() != 0)
             {
-                return Ok(_mapper.Map<IEnumerable<ReadImpact>>(allImpact));
+                return Ok(readTrainingSession);
             }
 
             return NotFound();
@@ -196,10 +206,16 @@ namespace ImpactMeasurementAPI.Controllers
         public ActionResult<IEnumerable<ReadImpact>> GetAllMediumImpact(int trainingSessionId)
         {
             var allImpact = _freeAccelerationRepository.GetAllImpactDataFromImpactZone(trainingSessionId, "medium");
-
+            var trainingsession = _freeAccelerationRepository.GetTrainingSession(trainingSessionId);
+            if (trainingsession.UserId == 0)
+            {
+                return NotFound();
+            }
+            var readTrainingSession = _mapper.Map<ReadTrainingSession>(trainingsession);
+            readTrainingSession.Impacts = _mapper.Map<IEnumerable<ReadImpact>>(allImpact);
             if (allImpact != null && allImpact.Count() != 0)
             {
-                return Ok(_mapper.Map<IEnumerable<ReadImpact>>(allImpact));
+                return Ok(readTrainingSession);
             }
 
             return NotFound();
@@ -209,10 +225,16 @@ namespace ImpactMeasurementAPI.Controllers
         public ActionResult<IEnumerable<ReadImpact>> GetAllHighImpact(int trainingSessionId)
         {
             var allImpact = _freeAccelerationRepository.GetAllImpactDataFromImpactZone(trainingSessionId, "high");
-
+            var trainingsession = _freeAccelerationRepository.GetTrainingSession(trainingSessionId);
+            if (trainingsession.UserId == 0)
+            {
+                return NotFound();
+            }
+            var readTrainingSession = _mapper.Map<ReadTrainingSession>(trainingsession);
+            readTrainingSession.Impacts = _mapper.Map<IEnumerable<ReadImpact>>(allImpact);
             if (allImpact != null && allImpact.Count() != 0)
             {
-                return Ok(_mapper.Map<IEnumerable<ReadImpact>>(allImpact));
+                return Ok(readTrainingSession);
             }
 
             return NotFound();
