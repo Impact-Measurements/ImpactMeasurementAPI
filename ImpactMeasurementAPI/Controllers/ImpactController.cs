@@ -101,37 +101,8 @@ namespace ImpactMeasurementAPI.Controllers
             }
             return Ok(readTrainingSession);
         }
-        
-        
-        // //TODO change to post once csv upload works
-        // [HttpGet("trainingsession/save", Name = "SaveTrainingSession")]
-        // public ActionResult<string> SaveTrainingSession()
-        // {
-        //     DatabaseController dbc = new DatabaseController();
-        //     
-        //     try
-        //     {
-        //         var records = CsvController.ParseCSV();
-        //         // return records[0].FreeAcc_X.ToString();
-        //         try
-        //         {
-        //             dbc.SaveTraining(records);
-        //             // return dbc.InsertTraining().ToString();
-        //             return Ok();
-        //         }
-        //         catch (Exception e)
-        //         {
-        //             return NotFound("2" + e.Message);
-        //         }
-        //     }
-        //     catch(Exception e)
-        //     {
-        //         return NotFound("1" + e.Message);
-        //     }
-        //     
-        // }
 
-        
+
         [HttpGet("impact/average/{trainingSessionId}", Name = "GetAverageImpact")]
         public ActionResult<double> GetAverageImpact(int trainingSessionId)
         {
@@ -159,26 +130,26 @@ namespace ImpactMeasurementAPI.Controllers
             return NotFound();
         }
         
-        [HttpGet("impact/all/with_threshold/{trainingSessionId}", Name = "GetAllImpactWithThreshold")]
-        public ActionResult<IEnumerable<ReadImpact>> GetAllImpactWithThreshold(int trainingSessionId)
-        {
-
-            var trainingsession = _freeAccelerationRepository.GetTrainingSession(trainingSessionId);
-            if (trainingsession.UserId == 0)
-            {
-                return NotFound();
-            }
-            var user = _userRepo.GetUserById(trainingsession.UserId);
-            
-            var allImpact = _freeAccelerationRepository.GetAllImpactDataFromSession(trainingSessionId, user.MinimumImpactThreshold);
-
-            if (allImpact != null && allImpact.Count() != 0)
-            {
-                return Ok(_mapper.Map<IEnumerable<ReadImpact>>(allImpact));
-            }
-
-            return NotFound();
-        }
+        // [HttpGet("impact/all/with_threshold/{trainingSessionId}", Name = "GetAllImpactWithThreshold")]
+        // public ActionResult<IEnumerable<ReadImpact>> GetAllImpactWithThreshold(int trainingSessionId)
+        // {
+        //
+        //     var trainingsession = _freeAccelerationRepository.GetTrainingSession(trainingSessionId);
+        //     if (trainingsession.UserId == 0)
+        //     {
+        //         return NotFound();
+        //     }
+        //     var user = _userRepo.GetUserById(trainingsession.UserId);
+        //     
+        //     var allImpact = _freeAccelerationRepository.GetAllImpactDataFromSession(trainingSessionId, user.MinimumImpactThreshold);
+        //
+        //     if (allImpact != null && allImpact.Count() != 0)
+        //     {
+        //         return Ok(_mapper.Map<IEnumerable<ReadImpact>>(allImpact));
+        //     }
+        //
+        //     return NotFound();
+        // }
         
         [HttpGet("impact/low/with_threshold/{trainingSessionId}", Name = "GetAllImpactWithLowThreshold")]
         public ActionResult<IEnumerable<ReadImpact>> GetAllLowImpact(int trainingSessionId)

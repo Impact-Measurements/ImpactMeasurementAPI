@@ -5,16 +5,12 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ImpactMeasurementAPI.Data
 {
-    public class AppDbContext : IdentityDbContext<ApplicationUser>
+    public class AppDbContext : IdentityDbContext<ApplicationUser> //DbContext //IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> opt) : base(opt)
         {
             
         }
-
-
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -30,8 +26,6 @@ namespace ImpactMeasurementAPI.Data
                 .HasOne(m => m.TrainingSession)
                 .WithMany(t => t.FreeAcceleration)
                 .HasForeignKey(m => m.TrainingSessionId);
-            
-            
 
             modelBuilder
                 .Entity<TrainingSession>()
@@ -51,6 +45,9 @@ namespace ImpactMeasurementAPI.Data
         public DbSet<Coach> Coaches { get; set; }
         public DbSet<Sport> Sports { get; set; }
         public DbSet<Athlete> Athletes { get; set; }
+        public DbSet<Impact> Impacts { get; set; }
+        public DbSet<User> Users { get; set; }
+
         
     }
 }

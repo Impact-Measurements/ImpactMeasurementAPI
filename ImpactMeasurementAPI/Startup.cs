@@ -2,27 +2,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using ImpactMeasurementAPI.Data;
-using Microsoft.AspNetCore.Identity;
 using ImpactMeasurementAPI.Models;
 using ImpactMeasurementAPI.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-
+using Microsoft.OpenApi.Models;
 
 namespace ImpactMeasurementAPI
 {
     public class Startup
     {
         private readonly IWebHostEnvironment _env;
-
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
@@ -42,18 +44,22 @@ namespace ImpactMeasurementAPI
                         .AllowAnyHeader()
                 );
             });
-
+            
             services.AddControllers();
             services.AddScoped<IFreeAccelerationRepo, FreeAccelerationRepo>();
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ImpactMeasurementAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "ImpactMeasurementAPI", Version = "v1"});
             });
 
             // if (_env.IsProduction())
             // {
-            //     
+            //     var connectionString = Configuration["mysqlconnection:connectionString2"];
+            //
+            //     services.AddDbContext<AppDbContext>(opt =>
+            //         // opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+            //         opt.UseMySQL(connectionString));
             // }
             // else
             // {
@@ -61,18 +67,13 @@ namespace ImpactMeasurementAPI
             //     services.AddDbContext<AppDbContext>(opt =>
             //         opt.UseInMemoryDatabase("InMemory"));
             // }
+            
             var connectionString = Configuration["mysqlconnection:connectionString2"];
 
             services.AddDbContext<AppDbContext>(opt =>
                 // opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
                 opt.UseMySQL(connectionString));
-}
-            else
-            {
-                Console.WriteLine("--> Using InMemory Db");
-                services.AddDbContext<AppDbContext>(opt =>
-                    opt.UseInMemoryDatabase("InMemory"));
-            }
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -89,7 +90,7 @@ namespace ImpactMeasurementAPI
                 {
                     option.SaveToken = true;
                     option.RequireHttpsMetadata = false;
-                    option.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                    option.TokenValidationParameters = new TokenValidationParameters()
                     {
                         ValidateIssuer = true,
                         ValidateAudience = true,
@@ -101,7 +102,7 @@ namespace ImpactMeasurementAPI
             
             services.AddTransient<IAthleteRepository, AthleteRepository>();
         }
-
+            
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -117,16 +118,11 @@ namespace ImpactMeasurementAPI
 
             app.UseRouting();
             app.UseCors("CorsPolicy");
-
-            app.UseRouting();
-
-            app.UseAuthentication();
             app.UseAuthorization();
 
             PrepDb.PrepPopulation(app, env.IsProduction());
-
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); }
-            );
+            
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

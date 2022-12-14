@@ -11,7 +11,7 @@ namespace ImpactMeasurementAPI.Controllers
     public class FileController : ControllerBase
     {
         [HttpPost("postTrainging", Name = "ProcessTrainingDb")]
-        public async Task<IActionResult> PostTrainingFile([FromForm] CsvFile document)
+        public async Task<IActionResult> PostTrainingFile([FromForm] CsvFile document, int UserId, int Effect, int Pain)
         {
             //Hier de verwerking naar de database 
             try
@@ -24,7 +24,7 @@ namespace ImpactMeasurementAPI.Controllers
                     // return records[0].FreeAcc_X.ToString();
                     try
                     {
-                        dbc.SaveTraining(records);
+                        dbc.SaveTraining(records, UserId, Effect, Pain);
                         // return dbc.InsertTraining().ToString();
                         return Ok(
                             $"Processed Training {document.Title} training version:{document.Version} - {document.File.FileName} thanks for submitting!");

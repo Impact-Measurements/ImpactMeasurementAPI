@@ -7,6 +7,8 @@
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
         <PackageReference Include="CsvHelper" Version="29.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.17" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
           <PrivateAssets>all</PrivateAssets>
@@ -14,6 +16,7 @@
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.17" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.17" />
         <PackageReference Include="MySql.Data" Version="8.0.30" />
         <PackageReference Include="MySql.Data.EntityFramework" Version="8.0.30" />
         <PackageReference Include="MySql.EntityFrameworkCore" Version="5.0.16" />
@@ -23,6 +26,10 @@
 
     <ItemGroup>
       <None Remove="TrainingFiles\training data.csv" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations" />
     </ItemGroup>
 
 </Project>

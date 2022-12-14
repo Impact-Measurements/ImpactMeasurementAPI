@@ -75,10 +75,10 @@ namespace ImpactMeasurementAPI.Logic
 
 
         //save all training data
-        public void SaveTraining(List<CsvData> records)
+        public void SaveTraining(List<CsvData> records, int user, int effect, int pain)
         {
             //create a new session
-            var trainingSessionID = InsertTraining();
+            var trainingSessionID = InsertTraining(user, effect, pain);
             // var trainingSessionID = 1;
 
             if (trainingSessionID != 0)
@@ -88,17 +88,21 @@ namespace ImpactMeasurementAPI.Logic
         }
 
         //Insert a new training moment
-        public long InsertTraining()
+        public long InsertTraining(int userId, int effect, int pain)
         {
-            var query = $@"INSERT INTO test.TrainingSession (StartingTime) VALUES({DateTime.Now})";
+            // var query = $@"INSERT INTO test.TrainingSession (StartingTime) VALUES({user.Id},{DateTime.Now},)";
 
             //open connection
             if (OpenConnection())
             {
                 //create command and assign the query and connection from the constructor
                 var cmd = connection.CreateCommand();
-                cmd.CommandText = "INSERT INTO test.TrainingSessions (StartingTime) VALUES (@1)";
-                cmd.Parameters.AddWithValue("@1", DateTime.Now);
+                cmd.CommandText = "INSERT INTO test.TrainingSessions (UserId, StartingTime, EffectivenessScore, PainfulnessScore) VALUES (@1,@2, @3, @4)";
+                cmd.Parameters.AddWithValue("@1", userId);
+                cmd.Parameters.AddWithValue("@2", DateTime.Now);
+                cmd.Parameters.AddWithValue("@3", effect);
+                cmd.Parameters.AddWithValue("@4", pain);
+                
                 //Execute command
                 cmd.ExecuteNonQuery();
 
