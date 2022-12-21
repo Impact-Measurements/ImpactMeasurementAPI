@@ -51,7 +51,7 @@ namespace ImpactMeasurementAPI.Logic
             memoryStream.Position = 0;
 
             var config = new CsvConfiguration(CultureInfo.CurrentCulture)
-                { Delimiter = DetectDelimiter(new StreamReader(memoryStream)) };
+                { Delimiter = ";" }; //DetectDelimiter(new StreamReader(memoryStream)) };
 
             using (var reader = new StreamReader(memoryStream))
             using (var csvReader = new CsvReader(reader, config))

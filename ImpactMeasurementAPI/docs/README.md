@@ -5,6 +5,7 @@
 ### Components
 ### Docker commands
 ### Migrations
+### Algorithm
 ### Endpoints
 <br>
 <br>
@@ -33,3 +34,10 @@
 When you open a terminal in the project folder the following command can be used</p>
 <p><i>dotnet ef migrations add migration</i> use this command to create a new migration or edit existing ones. <b>Attention</b> When changing an existing table either manually delete the table first using MYSQL terminal or PHPMyAdmin or when making multipl changes to existing tables it is easier to prune the docker volume.</p>
 <br>
+
+## Algorithm
+<p>For information about the algorithm used to calculate the impact during training sessions please look at the document <i>Impact Measurement Algorithm</i></p>
+<br>
+
+## Swagger
+<
