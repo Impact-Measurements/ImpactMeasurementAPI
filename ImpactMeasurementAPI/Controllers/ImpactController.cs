@@ -24,9 +24,9 @@ namespace ImpactMeasurementAPI.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IFreeAccelerationRepo _freeAccelerationRepository;
-        private readonly IUserRepo _userRepo;
+        private readonly IAthleteRepo _userRepo;
 
-        public ImpactController(IFreeAccelerationRepo freeAccelerationRepository, IUserRepo userRepo, IMapper mapper)
+        public ImpactController(IFreeAccelerationRepo freeAccelerationRepository, IAthleteRepo userRepo, IMapper mapper)
         {
             _freeAccelerationRepository = freeAccelerationRepository;
             _userRepo = userRepo;

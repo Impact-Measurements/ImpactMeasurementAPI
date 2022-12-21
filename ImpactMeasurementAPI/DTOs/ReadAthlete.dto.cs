@@ -1,6 +1,6 @@
 namespace ImpactMeasurementAPI.DTOs
 {
-    public class ReadUser
+    public class ReadAthlete
     {
         public int Id { get; set; }
         

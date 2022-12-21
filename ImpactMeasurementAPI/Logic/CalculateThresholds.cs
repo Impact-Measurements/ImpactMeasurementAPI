@@ -7,9 +7,9 @@ namespace ImpactMeasurementAPI.Logic
     public class CalculateThresholds
     {
         private TrainingSession _trainingSession;
-        private User _user;
+        private Athlete _user;
         
-        public CalculateThresholds(TrainingSession trainingSession, User user)
+        public CalculateThresholds(TrainingSession trainingSession, Athlete user)
         {
             _trainingSession = trainingSession;
             _user = user;

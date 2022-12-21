@@ -13,12 +13,19 @@ namespace ImpactMeasurementAPI.Models
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-
         [Required]
         [Compare("ConfirmPassword")]
         public string Password { get; set; }
 
         [Required]
         public string ConfirmPassword { get; set; }
+        
+        public string Name { get; set; }
+        
+        public double Mass { get; set; }
+        
+        public double MinimumImpactThreshold { get; set; }
+        public double MediumImpactThreshold { get; set; }
+        public double HighImpactThreshold { get; set; }
     }
 }

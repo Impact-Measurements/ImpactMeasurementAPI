@@ -5,11 +5,11 @@ using ImpactMeasurementAPI.Models;
 
 namespace ImpactMeasurementAPI.Data
 {
-    public class UserRepo : IUserRepo
+    public class AthleteRepo : IAthleteRepo
     {
         private readonly AppDbContext _context;
 
-        public UserRepo(AppDbContext context)
+        public AthleteRepo(AppDbContext context)
         {
             _context = context;
         }
@@ -18,12 +18,12 @@ namespace ImpactMeasurementAPI.Data
             return (_context.SaveChanges() >= 0);
         }
 
-        public User GetUserById(int id)
+        public Athlete GetUserById(int id)
         {
             return _context.Users.FirstOrDefault(t => t.Id == id);
         }
 
-        public void CreateUser(User user)
+        public void CreateUser(Athlete user)
         {
             if (user == null)
             {
@@ -33,12 +33,12 @@ namespace ImpactMeasurementAPI.Data
             _context.Users.Add(user);
         }
 
-        public void UpdateUser(User user)
+        public void UpdateUser(Athlete user)
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<Athlete> GetAllUsers()
         {
             return _context.Users.ToList();
         }
