@@ -130,6 +130,30 @@ namespace ImpactMeasurementAPI.Controllers
             return NotFound();
         }
         
+        [HttpGet("impact/all/with_threshold/{trainingSessionId}", Name = "GetAllImpactWithThreshold")]
+        public ActionResult<ReadTrainingSession> GetAllImpactWithThreshold(int trainingSessionId)
+        {
+
+            var trainingsession = _freeAccelerationRepository.GetTrainingSession(trainingSessionId);
+            if (trainingsession.UserId == 0)
+            {
+                return NotFound();
+            }
+            var user = _userRepo.GetUserById(trainingsession.UserId);
+            var readTrainingSession = _mapper.Map<ReadTrainingSession>(trainingsession);
+            
+            var allImpact = _freeAccelerationRepository.GetAllImpactDataFromSession(trainingSessionId, user.MinimumImpactThreshold);
+
+            readTrainingSession.Impacts = _mapper.Map<IEnumerable<ReadImpact>>(allImpact);
+
+            if (allImpact != null && allImpact.Count() != 0)
+            {
+                return Ok(readTrainingSession);
+            }
+
+            return NotFound();
+        }
+        
         // [HttpGet("impact/all/with_threshold/{trainingSessionId}", Name = "GetAllImpactWithThreshold")]
         // public ActionResult<IEnumerable<ReadImpact>> GetAllImpactWithThreshold(int trainingSessionId)
         // {

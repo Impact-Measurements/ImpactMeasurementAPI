@@ -24,10 +24,14 @@ namespace ImpactMeasurementAPI.Controllers
                     // return records[0].FreeAcc_X.ToString();
                     try
                     {
-                        dbc.SaveTraining(records, UserId, Effect, Pain);
+                        //TODO Unhardcode this
+                        //dbc.SaveTraining(records, UserId, Effect, Pain);
+                        dbc.SaveTraining(records, 1, 7, 3);
                         // return dbc.InsertTraining().ToString();
                         return Ok(
-                            $"Processed Training {document.Title} training version:{document.Version} - {document.File.FileName} thanks for submitting!");
+                            //                            $"Processed Training {document.Title} training version:{document.Version} - {document.File.FileName} thanks for submitting!");
+                            $"Processed Training thanks for submitting!");
+
                     }
                     catch (Exception e)
                     {
