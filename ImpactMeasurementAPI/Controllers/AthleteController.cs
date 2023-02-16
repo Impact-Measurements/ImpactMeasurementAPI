@@ -9,46 +9,46 @@ namespace ImpactMeasurementAPI.Controllers
 {
     [Route("api/")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class AthleteController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IUserRepo _repository;
+        private readonly IAthleteRepo _repository;
         
-        public UserController(IUserRepo repository,IMapper mapper)
+        public AthleteController(IAthleteRepo repository,IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
         
         [HttpGet("users/all", Name = "GetUsers")]
-        public IEnumerable<ReadUser> GetAllUsers()
+        public IEnumerable<ReadAthlete> GetAllUsers()
         {
 
             var userModel = _repository.GetAllUsers();
-            var users = _mapper.Map<IEnumerable<ReadUser>>(userModel);
+            var users = _mapper.Map<IEnumerable<ReadAthlete>>(userModel);
 
             return users;
         }
         
         [HttpPost("users/create", Name = "CreateUser")]
-        public ActionResult<ReadUser> CreateUser(CreateUser createUser)
+        public ActionResult<ReadAthlete> CreateUser(CreateAthlete createUser)
         {
-            var userModel = _mapper.Map<User>(createUser);
+            var userModel = _mapper.Map<Athlete>(createUser);
             _repository.CreateUser(userModel);
             _repository.SaveChanges();
 
-            var userReadDto = _mapper.Map<ReadUser>(userModel);
+            var userReadDto = _mapper.Map<ReadAthlete>(userModel);
 
             return userReadDto;
         }
         
         [HttpPut("users/minimum/threshold", Name = "UpdateMinimumImpactThreshold")]
-        public ActionResult<ReadUser> UpdateMinimumImpactThreshold(UpdateMinimumImpactThreshold minimumImpactThreshold)
+        public ActionResult<ReadAthlete> UpdateMinimumImpactThreshold(UpdateMinimumImpactThreshold minimumImpactThreshold)
         {
-            User user = _repository.GetUserById(minimumImpactThreshold.userId);
+            Athlete user = _repository.GetUserById(minimumImpactThreshold.userId);
             user.MinimumImpactThreshold = minimumImpactThreshold.ImpactForce;
             _repository.SaveChanges();
-            return _mapper.Map<ReadUser>(user);
+            return _mapper.Map<ReadAthlete>(user);
         }
 
     }
