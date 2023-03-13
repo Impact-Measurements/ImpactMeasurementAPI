@@ -22,6 +22,7 @@
 
 ## Docker commands
 <p> When you open a terminal in the project folder the following commands can be used</p>
+<p><i>docker-compose up --build</i></p>
 <p><i>docker-compose up -d --build
 </i> this command builds and runs the docker container silently in the background</p>
 <p><i>docker-compose build  </i> this command creates a new build of the docker container <b>Attention</b> you will need to use <i>docker-compose up </i> to actually use the container</p>
