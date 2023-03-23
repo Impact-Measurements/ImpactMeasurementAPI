@@ -10,11 +10,11 @@ namespace ImpactMeasurementAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AthleteController : ControllerBase
+    public class LoginController : ControllerBase
     {
         private readonly IAthleteRepository _athleteRepository;
 
-        public AthleteController(IAthleteRepository athleteRepository)
+        public LoginController(IAthleteRepository athleteRepository)
         {
             _athleteRepository = athleteRepository;
         }

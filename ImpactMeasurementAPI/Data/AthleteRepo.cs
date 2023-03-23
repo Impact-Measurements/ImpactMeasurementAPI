@@ -20,7 +20,7 @@ namespace ImpactMeasurementAPI.Data
 
         public Athlete GetUserById(int id)
         {
-            return _context.Users.FirstOrDefault(t => t.Id == id);
+            return _context.Athletes.FirstOrDefault(t => t.Id == id);
         }
 
         public void CreateUser(Athlete user)
@@ -30,7 +30,7 @@ namespace ImpactMeasurementAPI.Data
                 throw new ArgumentNullException(nameof(user));
             }
 
-            _context.Users.Add(user);
+            _context.Athletes.Add(user);
         }
 
         public void UpdateUser(Athlete user)
@@ -40,7 +40,7 @@ namespace ImpactMeasurementAPI.Data
 
         public IEnumerable<Athlete> GetAllUsers()
         {
-            return _context.Users.ToList();
+            return _context.Athletes.ToList();
         }
     }
 }

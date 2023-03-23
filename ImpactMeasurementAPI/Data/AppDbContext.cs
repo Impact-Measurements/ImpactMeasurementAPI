@@ -46,7 +46,6 @@ namespace ImpactMeasurementAPI.Data
         public DbSet<Sport> Sports { get; set; }
         public DbSet<Athlete> Athletes { get; set; }
         public DbSet<Impact> Impacts { get; set; }
-        public DbSet<User> Users { get; set; }
 
         
     }

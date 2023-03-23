@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using ImpactMeasurementAPI.Models;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
@@ -22,7 +23,7 @@ namespace ImpactMeasurementAPI.Logic
         private void Initialize()
         {
             var connectionString =
-                "server=db;userid=root;password=my_secret_password;database=test;persistsecurityinfo=True;";
+                "Server=host.docker.internal;port=3306;Database=test;Uid=root;Pwd=my_secret_password;";
             connection = new MySqlConnection(connectionString);
         }
 
@@ -75,7 +76,7 @@ namespace ImpactMeasurementAPI.Logic
 
 
         //save all training data
-        public void SaveTraining(List<CsvData> records, int user, int effect, int pain)
+        public long SaveTraining(List<CsvData> records, int user, int effect, int pain)
         {
             //create a new session
             var trainingSessionID = InsertTraining(user, effect, pain);
@@ -84,7 +85,10 @@ namespace ImpactMeasurementAPI.Logic
             if (trainingSessionID != 0)
                 //add each packet for that sessions
                 foreach (var record in records)
+                {
                     InsertFrame(record, trainingSessionID);
+                }
+            return trainingSessionID;
         }
 
         //Insert a new training moment
@@ -111,7 +115,7 @@ namespace ImpactMeasurementAPI.Logic
                 CloseConnection();
 
                 return trainingId;
-            }
+            } 
 
             return 0;
         }
@@ -120,8 +124,9 @@ namespace ImpactMeasurementAPI.Logic
         //Insert a single frame / packetcount
         public void InsertFrame(CsvData record, long trainingId)
         {
+            CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US");
             var query =
-                $@"INSERT INTO test.MomentarilyAccelerations(TrainingSessionId, Frame, AccelerationX, AccelerationY, AccelerationZ) VALUES({trainingId}, {record.packetCounter}, {record.FreeAcc_X}, {record.FreeAcc_Y}, {record.FreeAcc_Z})";
+                $@"INSERT INTO test.MomentarilyAccelerations(TrainingSessionId, Frame, AccelerationX, AccelerationY, AccelerationZ) VALUES({trainingId}, {record.PacketCounter}, {record.FreeAcc_X.ToString(culture)}, {record.FreeAcc_Y.ToString(culture)}, {record.FreeAcc_Z.ToString(culture)})";
 
             //open connection
             if (OpenConnection())

@@ -1,8 +1,8 @@
-using System;
-using System.Threading.Tasks;
 using ImpactMeasurementAPI.Logic;
 using ImpactMeasurementAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace ImpactMeasurementAPI.Controllers
 {
@@ -11,7 +11,7 @@ namespace ImpactMeasurementAPI.Controllers
     public class FileController : ControllerBase
     {
         [HttpPost("postTrainging", Name = "ProcessTrainingDb")]
-        public async Task<IActionResult> PostTrainingFile([FromForm] CsvFile document, int UserId, int Effect, int Pain)
+        public async Task<IActionResult> PostTrainingFile( int UserId, int Effect, int Pain, [FromForm] CsvFile document)
         {
             //Hier de verwerking naar de database 
             try
@@ -26,11 +26,11 @@ namespace ImpactMeasurementAPI.Controllers
                     {
                         //TODO Unhardcode this
                         //dbc.SaveTraining(records, UserId, Effect, Pain);
-                        dbc.SaveTraining(records, 1, 7, 3);
+                        var id = dbc.SaveTraining(records, 1, Effect, Pain);
                         // return dbc.InsertTraining().ToString();
                         return Ok(
                             //                            $"Processed Training {document.Title} training version:{document.Version} - {document.File.FileName} thanks for submitting!");
-                            $"Processed Training thanks for submitting!");
+                            $"Processed Training thanks for submitting! {records.Count}, {id}");
 
                     }
                     catch (Exception e)
