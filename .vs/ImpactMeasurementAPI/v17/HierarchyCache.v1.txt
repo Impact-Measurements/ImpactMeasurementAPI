@@ -1,0 +1,221 @@
+﻿++Solution 'ImpactMeasurementAPI' ‎(2 of 2 projects)
+i:{00000000-0000-0000-0000-000000000000}:ImpactMeasurementAPI.sln
+++ImpactMeasurementAPI
+i:{00000000-0000-0000-0000-000000000000}:ImpactMeasurementAPI
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\bin\debug\net5.0\impactmeasurementapi.dll
+++Connected Services 
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>550
+++Dependencies
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>549
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:>316
+++Properties
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\properties\
+++launchSettings.json
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\properties\launchsettings.json
+++Controllers
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\controllers\
+++AthleteController.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\controllers\athletecontroller.cs
+++FileController.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\controllers\filecontroller.cs
+++ImpactController.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\controllers\impactcontroller.cs
+++LoginController.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\controllers\logincontroller.cs
+++Data
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\data\
+++AppDbContext.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\data\appdbcontext.cs
+++AthleteRepo.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\data\athleterepo.cs
+++FreeAccelerationRepo.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\data\freeaccelerationrepo.cs
+++IAthleteRepo.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\data\iathleterepo.cs
+++IFreeAccelerationRepo.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\data\ifreeaccelerationrepo.cs
+++PrepDb.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\data\prepdb.cs
+++docs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\docs\
+++README.md
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\docs\readme.md
+++DTOs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\dtos\
+++AthleteSignIn.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\dtos\athletesignin.cs
+++CreateAthlete.dto.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\dtos\createathlete.dto.cs
+++CreateMomentarilyAcceleration.dto.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\dtos\createmomentarilyacceleration.dto.cs
+++CreateTrainingSession.dto.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\dtos\createtrainingsession.dto.cs
+++ReadAthlete.dto.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\dtos\readathlete.dto.cs
+++ReadFreeAcceleration.dto.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\dtos\readfreeacceleration.dto.cs
+++ReadImpact.dto.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\dtos\readimpact.dto.cs
+++ReadTrainingSession.dto.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\dtos\readtrainingsession.dto.cs
+++UpdateAthlete.dto.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\dtos\updateathlete.dto.cs
+++UpdateMinimumImpactThreshold.dto.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\dtos\updateminimumimpactthreshold.dto.cs
+++UpdateTrainingSession.dto.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\dtos\updatetrainingsession.dto.cs
+++Logic
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\logic\
+++CalculateImpact.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\logic\calculateimpact.cs
+++CalculateThresholds.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\logic\calculatethresholds.cs
+++CsvReader.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\logic\csvreader.cs
+++DatabaseActions.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\logic\databaseactions.cs
+++Migrations
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\migrations\
+++Models
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\models\
+++ApplicationUser.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\models\applicationuser.cs
+++Athlete.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\models\athlete.cs
+++AthleteOld.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\models\athleteold.cs
+++Coach.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\models\coach.cs
+++Color.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\models\color.cs
+++CsvData.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\models\csvdata.cs
+++CsvDataMap.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\models\csvdatamap.cs
+++CsvFile.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\models\csvfile.cs
+++Impact.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\models\impact.cs
+++MomentarilyAcceleration.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\models\momentarilyacceleration.cs
+++Sport.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\models\sport.cs
+++TrainingSession.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\models\trainingsession.cs
+++Profiles
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\profiles\
+++Repositories
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\repositories\
+++AthleteRepository.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\repositories\athleterepository.cs
+++IAthleteRepository.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\repositories\iathleterepository.cs
+++app.config.transform
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\.nuget\packages\mysql.data.entityframework\8.0.30\contentfiles\any\netstandard2.1\app.config.transform
+++appsettings.json
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\appsettings.json
+++docker-compose.yml
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\docker-compose.yml
+++Dockerfile
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\dockerfile
+++Program.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\program.cs
+++Startup.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\startup.cs
+++web.config.transform
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\.nuget\packages\mysql.data.entityframework\8.0.30\contentfiles\any\netstandard2.1\web.config.transform
+++No service dependencies discovered
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>551
+++Analyzers
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:analyzers
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:analyzers
+++Frameworks
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:frameworks
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:frameworks
+++Packages
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:packages
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:packages
+++20221207200529_migration_extra.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\migrations\20221207200529_migration_extra.cs
+++AppDbContextModelSnapshot.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\migrations\appdbcontextmodelsnapshot.cs
+++ImpactProfile.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\profiles\impactprofile.cs
+++appsettings.Development.json
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\appsettings.development.json
+++appsettings.Production.json
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\appsettings.production.json
+++Microsoft.AspNetCore.Analyzers
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\program files\dotnet\sdk\5.0.416\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
+++Microsoft.AspNetCore.Components.Analyzers
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\program files\dotnet\sdk\5.0.416\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.components.analyzers.dll
+++Microsoft.AspNetCore.Mvc.Analyzers
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\program files\dotnet\sdk\5.0.416\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.mvc.analyzers.dll
+++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\program files\dotnet\sdk\5.0.416\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:c:\program files\dotnet\sdk\5.0.416\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+++Microsoft.CodeAnalysis.NetAnalyzers
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\program files\dotnet\sdk\5.0.416\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:c:\program files\dotnet\sdk\5.0.416\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+++Microsoft.EntityFrameworkCore.Analyzers
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\.nuget\packages\microsoft.entityframeworkcore.analyzers\5.0.17\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:c:\users\bassi\.nuget\packages\microsoft.entityframeworkcore.analyzers\5.0.17\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+++Microsoft.Extensions.Logging.Generators (C:\Users\bassi\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.2\analyzers\dotnet\roslyn3.11\cs\Microsoft.Extensions.Logging.Generators.dll)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.2\analyzers\dotnet\roslyn3.11\cs\microsoft.extensions.logging.generators.dll
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:c:\users\bassi\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.2\analyzers\dotnet\roslyn3.11\cs\microsoft.extensions.logging.generators.dll
+++Microsoft.Extensions.Logging.Generators (C:\Users\bassi\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.2\analyzers\dotnet\roslyn4.0\cs\Microsoft.Extensions.Logging.Generators.dll)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.2\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:c:\users\bassi\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.2\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+++Microsoft.AspNetCore.App
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\microsoft.aspnetcore.app
+++Microsoft.NETCore.App
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\microsoft.netcore.app
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:c:\users\bassi\source\repos\impactmeasurementapi\testproject.unittests\microsoft.netcore.app
+++AutoMapper.Extensions.Microsoft.DependencyInjection (12.0.0)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>584
+++CsvHelper (29.0.0)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>591
+++Microsoft.AspNetCore.Authentication.JwtBearer (5.0.17)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>589
+++Microsoft.AspNetCore.Identity.EntityFrameworkCore (5.0.17)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>588
+++Microsoft.EntityFrameworkCore (5.0.17)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>582
+++Microsoft.EntityFrameworkCore.Design (5.0.17)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>585
+++Microsoft.EntityFrameworkCore.InMemory (5.0.17)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>590
+++Microsoft.EntityFrameworkCore.SqlServer (5.0.17)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>583
+++Microsoft.Extensions.Identity.Stores (5.0.17)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>595
+++MySql.Data (8.0.30)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>592
+++MySql.Data.EntityFramework (8.0.30)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>594
+++MySql.EntityFrameworkCore (5.0.16)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>587
+++Npgsql (7.0.0-rc.2)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>593
+++Swashbuckle.AspNetCore (5.6.3)
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:>586
+++20221207200529_migration_extra.Designer.cs
+i:{ff1aaef9-f64b-41c1-aead-240d060088b5}:c:\users\bassi\source\repos\impactmeasurementapi\impactmeasurementapi\migrations\20221207200529_migration_extra.designer.cs
+++TestProject.UnitTests
+i:{00000000-0000-0000-0000-000000000000}:TestProject.UnitTests
+++UnitTest1.cs
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:c:\users\bassi\source\repos\impactmeasurementapi\testproject.unittests\unittest1.cs
+++Projects
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:projects
+++coverlet.collector (3.0.2)
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:>566
+++Microsoft.NET.Test.Sdk (16.9.4)
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:>561
+++Microsoft.Owin (4.2.2)
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:>564
+++Microsoft.Owin.Host.SystemWeb (4.2.2)
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:>562
+++NUnit (3.13.1)
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:>563
+++NUnit3TestAdapter (3.17.0)
+i:{a4aff0f9-79ce-44aa-8edd-f5f7bbc01478}:>565

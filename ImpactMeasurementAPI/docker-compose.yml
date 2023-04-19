@@ -1,0 +1,44 @@
+version: '3.0'
+services:
+  db:
+    image: mysql:5.7
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: my_secret_password
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./_MySQL_Init_Script:/docker-entrypoint-initdb.d
+    restart: always
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
+  
+  impact_measurement_api:
+    container_name: impact_measurement_api
+    depends_on:
+      - db
+    image: impact_measurement_api:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "44301:44301"
+volumes:
+  dbdata:
