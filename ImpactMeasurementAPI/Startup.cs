@@ -28,6 +28,7 @@ namespace ImpactMeasurementAPI
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            var con = Configuration["DB_CONNECTION_STRING"];
             _env = env;
         }
 

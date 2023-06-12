@@ -11,6 +11,8 @@ namespace ImpactMeasurementAPI.Logic
 {
     public class CsvController
     {
+        const int _linesToSkip = 10;
+
         public static List<CsvData> ParseCSVString()
         {
             var csv =
@@ -56,7 +58,7 @@ namespace ImpactMeasurementAPI.Logic
             using (var csv = new CsvReader(reader, csvConfig))
             {
                 // Read and skip the header rows until you reach row 11
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < _linesToSkip; i++)
                 {
                     csv.Read();
                 }

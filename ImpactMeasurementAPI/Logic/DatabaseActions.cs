@@ -22,8 +22,8 @@ namespace ImpactMeasurementAPI.Logic
         //Initialize values
         private void Initialize()
         {
-            var connectionString =
-                "Server=host.docker.internal;port=3306;Database=test;Uid=root;Pwd=my_secret_password;";
+            DotNetEnv.Env.Load();
+            var connectionString =Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
             connection = new MySqlConnection(connectionString);
         }
 
