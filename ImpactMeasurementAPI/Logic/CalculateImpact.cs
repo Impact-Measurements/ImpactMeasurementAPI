@@ -41,8 +41,6 @@ namespace ImpactMeasurementAPI.Logic
         public IEnumerable<Impact> CalculateAllImpacts()
         {
             impacts = new List<Impact>();
-
-            //acceleration value to compare to the next value to detect impact
             double accelerationZ = 0;
             double accelerationY = 0;
             double accelerationX = 0;
@@ -50,68 +48,88 @@ namespace ImpactMeasurementAPI.Logic
 
             if (_momentarilyAccelerations == null) return null;
 
-            //For each acceleration value, see if the acceleration is going towards the ground
             foreach (var value in _momentarilyAccelerations)
             {
-                //If the acceleration towards the ground is still increasing,
-                //set a1 to the lowers value (=highest acceleration to the ground)
-                if (value.AccelerationZ < accelerationZ)
-                {
-                    accelerationZ = value.AccelerationZ;
-                    accelerationY = value.AccelerationY;
-                    accelerationX = value.AccelerationX;
-                    frame = value.Frame;
-                }
-
-                //If the acceleration doesn't increase anymore, there will be impact
-                //When the acceleration hits 0 or above, there was or will be a point of impact and we need to add
-                //that to the list
-                if (accelerationZ < 0 && value.AccelerationZ > accelerationZ && value.AccelerationZ>= 0)
-                { 
-                    var impactZ = accelerationZ * _mass * -1;
-                    var impactY = accelerationY * _mass * -1;
-                    var impactX = accelerationX * _mass * -1;
-
-                    //Total impact is the Resultant Force. Resultant force is calculated by using the Pythagorean Theorem twice
-                    var totalImpact = Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(impactX, 2) + Math.Pow(impactY, 2)), 2) +
-                                                Math.Sqrt(Math.Pow(impactZ, 2)));
-
-                    //if minimum impact is defined and total impact is above the threshold, add it to the list.
-                    //if minimum impact is not defined, add total impact to the list.
-                    if (!(_minimumImpactThreshold >= 1) || !(totalImpact < _minimumImpactThreshold))
-                    {
-                        Impact impact = new Impact()
-                        {
-                            ImpactForce = totalImpact, ImpactDirectionX = impactX, ImpactDirectionY = impactY,
-                            ImpactDirectionZ = impactZ, Frame = frame
-                        };
-
-                        //Register the color of the impact (red is bad, yellow is medium, green is good)
-                        //If statement can be turned around if it turns out that more high impact forces are more common
-                        if (totalImpact < _mediumImpactThreshold)
-                        {
-                            impact.Color = Color.GREEN;
-                        }
-                        else if (totalImpact < _highImpactThreshold)
-                        {
-                            impact.Color = Color.YELLOW;
-                        }
-                        else
-                        {
-                            impact.Color = Color.RED;
-                        }
-
-                        impacts.Add(impact);
-                    }
-
-                    accelerationZ = 0;
-                    accelerationY = 0;
-                    accelerationX = 0;
-                }
+                UpdateMaxAcceleration(value, ref accelerationZ, ref accelerationY, ref accelerationX, ref frame);
+                DetectImpactAndUpdateList(value, accelerationZ, ref accelerationZ, ref accelerationY, ref accelerationX, frame);
             }
 
             return impacts;
         }
-        
+
+        private void UpdateMaxAcceleration(MomentarilyAcceleration value, ref double accelerationZ, ref double accelerationY, ref double accelerationX, ref int frame)
+        {
+            if (value.AccelerationZ < accelerationZ)
+            {
+                accelerationZ = value.AccelerationZ;
+                accelerationY = value.AccelerationY;
+                accelerationX = value.AccelerationX;
+                frame = value.Frame;
+            }
+        }
+
+        private void DetectImpactAndUpdateList(MomentarilyAcceleration value, double accelerationZ, ref double maxAccelerationZ, ref double accelerationY, ref double accelerationX, int frame)
+        {
+            if (accelerationZ < 0 && value.AccelerationZ > accelerationZ && value.AccelerationZ >= 0)
+            {
+                var impactZ = accelerationZ * _mass * -1;
+                var impactY = accelerationY * _mass * -1;
+                var impactX = accelerationX * _mass * -1;
+
+                var totalImpact = CalculateTotalImpact(impactX, impactY, impactZ);
+
+                if (!(_minimumImpactThreshold >= 1) || !(totalImpact < _minimumImpactThreshold))
+                {
+                    Impact impact = CreateImpact(totalImpact, impactX, impactY, impactZ, frame);
+                    RegisterImpactColor(impact);
+                    impacts.Add(impact);
+                }
+
+                ResetMaxAcceleration(ref maxAccelerationZ, ref accelerationY, ref accelerationX);
+            }
+        }
+
+        private double CalculateTotalImpact(double impactX, double impactY, double impactZ)
+        {
+            return Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(impactX, 2) + Math.Pow(impactY, 2)), 2) +
+                             Math.Sqrt(Math.Pow(impactZ, 2)));
+        }
+
+        private Impact CreateImpact(double totalImpact, double impactX, double impactY, double impactZ, int frame)
+        {
+            return new Impact()
+            {
+                ImpactForce = totalImpact,
+                ImpactDirectionX = impactX,
+                ImpactDirectionY = impactY,
+                ImpactDirectionZ = impactZ,
+                Frame = frame
+            };
+        }
+
+        private void RegisterImpactColor(Impact impact)
+        {
+            if (impact.ImpactForce < _mediumImpactThreshold)
+            {
+                impact.Color = Color.GREEN;
+            }
+            else if (impact.ImpactForce < _highImpactThreshold)
+            {
+                impact.Color = Color.YELLOW;
+            }
+            else
+            {
+                impact.Color = Color.RED;
+            }
+        }
+
+        private void ResetMaxAcceleration(ref double maxAccelerationZ, ref double accelerationY, ref double accelerationX)
+        {
+            maxAccelerationZ = 0;
+            accelerationY = 0;
+            accelerationX = 0;
+        }
+
+
     }
 }

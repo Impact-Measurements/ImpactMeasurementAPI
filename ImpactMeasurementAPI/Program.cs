@@ -12,6 +12,7 @@ namespace ImpactMeasurementAPI
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
+            DotNetEnv.Env.Load();
             return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
         }
