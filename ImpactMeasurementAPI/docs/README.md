@@ -30,6 +30,16 @@
 <p><i>docker system prune --volumes  </i> use this command after the down command to remove all saved docker data <b>Warning this removes all data only use when you know what youre doing</b> This command makes it possible to create a clean docker container</p>
 <br>
 
+## One-Time setup after setting up docker environment
+
+<p> Go to localhost:8081 in your browser.</p>
+<p>Click on the database "test"</p?
+<p>Go to the table "Athletes" and click insert</p>
+<p> Fill the field id with the number 1 and the rest of the fields to your own desire </p>
+<p> Click "Go" </p>
+<p> On the new page you are on click "Go" again </p>
+<p> The application should be ready to use now </p>
+
 ## Migrations -may be OSX biased-
 <p> Migrations are what build the database during the build phase of the docker instance.
 When you open a terminal in the project folder the following command can be used</p>
